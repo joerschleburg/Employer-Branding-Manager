@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Eine Woche als HR-Manager</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap');
+:root{
+  --bg:#05080f;--surface:rgba(12,18,32,0.7);--border:rgba(255,255,255,0.06);
+  --text:#c8ccd4;--bright:#f0f2f5;--dim:#5a6172;
+  --accent:#7c6aef;--accent-g:rgba(124,106,239,0.15);
+  --red:#ef4444;--red-d:rgba(239,68,68,0.12);
+  --green:#34d399;--green-d:rgba(52,211,153,0.1);
+  --amber:#fbbf24;--amber-d:rgba(251,191,36,0.1);
+  --purple:#a78bfa;--purple-d:rgba(167,139,250,0.12);
+  --fd:'Outfit',sans-serif;--fb:'Newsreader',Georgia,serif;--fm:'Courier New',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);line-height:1.7}
+#bgC{position:fixed;inset:0;z-index:0;pointer-events:none}
+#app{position:relative;z-index:1;height:100vh;display:flex;flex-direction:column}
+#pW{height:3px;background:rgba(255,255,255,0.03);flex-shrink:0}
+#pB{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--green));transition:width 0.8s cubic-bezier(0.22,1,0.36,1);box-shadow:0 0 12px var(--accent-g)}
+#hdr{flex-shrink:0;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);backdrop-filter:blur(12px);background:rgba(5,8,15,0.5)}
+#hdr .logo{font-family:var(--fd);font-size:11px;letter-spacing:4px;color:var(--dim);text-transform:uppercase}
+.wdots{display:flex;gap:6px}
+.wd{width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.12);transition:all 0.4s}
+.wd.dn{background:var(--green);border-color:var(--green)}.wd.nw{background:var(--accent);border-color:var(--accent);box-shadow:0 0 10px var(--accent-g)}
+#ct{flex:1;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth}
+#sc{max-width:640px;margin:0 auto;padding:40px 28px 80px}
+#ft{flex-shrink:0;padding:10px 24px;text-align:center;border-top:1px solid var(--border);backdrop-filter:blur(12px);background:rgba(5,8,15,0.5)}
+#ft span{font-family:var(--fd);font-size:9px;letter-spacing:2px;color:var(--dim)}
+
+.hl{font-family:var(--fd);font-weight:700;color:var(--bright);line-height:1.15;letter-spacing:-1px}
+.hl-xl{font-size:clamp(36px,7vw,52px)}.hl-lg{font-size:clamp(28px,5vw,38px)}.hl-md{font-size:clamp(20px,3.5vw,26px)}
+.sub{font-family:var(--fd);font-weight:300;color:var(--dim);font-size:clamp(14px,2.5vw,17px);line-height:1.5}
+.st{font-size:16px;color:var(--text);line-height:1.85;margin-bottom:20px}
+.st em{color:var(--purple);font-style:italic}.st strong{color:var(--bright);font-weight:500}
+.th{font-style:italic;color:#8891a3;font-size:15px;padding:14px 20px;border-left:2px solid rgba(255,255,255,0.08);margin:16px 0;line-height:1.75;background:rgba(255,255,255,0.015);border-radius:0 8px 8px 0}
+.lb{font-family:var(--fd);font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:600}
+.tb{display:inline-block;font-family:var(--fm);font-size:12px;color:var(--dim);background:rgba(255,255,255,0.04);padding:4px 12px;border-radius:6px;margin-bottom:12px;border:1px solid var(--border)}
+.dh{text-align:center;padding:32px 0 28px}.dh .lb{color:var(--accent);margin-bottom:6px}
+
+.sk{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;margin:16px 0;font-family:var(--fd);backdrop-filter:blur(8px)}
+.sk-h{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.sk-a{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.sk-n{font-size:13px;font-weight:600;color:var(--bright)}.sk-r{font-size:11px;color:var(--dim);font-weight:400}
+.sk-t{font-size:10px;color:var(--dim);margin-left:auto;font-family:var(--fm)}
+.sk-b{font-size:14px;color:#a8adb8;line-height:1.6}
+.sk-tg{display:inline;background:var(--accent-g);color:var(--purple);padding:2px 6px;border-radius:4px;font-size:12px;font-weight:500}
+.sk-u{border-left:3px solid var(--red)}.sk-n2{border-left:3px solid var(--amber)}
+.em{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;margin:16px 0;font-family:var(--fd);backdrop-filter:blur(8px)}
+.em-s{font-size:14px;font-weight:600;color:var(--bright);margin-bottom:4px}
+.em-f{font-size:11px;color:var(--dim);margin-bottom:10px;font-family:var(--fm)}
+.em-b{font-size:13px;color:#94a3b8;line-height:1.6}
+.bdg{display:inline-block;font-size:9px;padding:3px 8px;border-radius:4px;font-weight:600;margin-left:8px;letter-spacing:0.5px;font-family:var(--fd);vertical-align:middle}
+.bdg-u{background:var(--red-d);color:#fca5a5}.bdg-n{background:var(--amber-d);color:var(--amber)}.bdg-a{background:var(--purple-d);color:var(--purple)}
+.chs{display:flex;flex-direction:column;gap:10px;margin:24px 0}
+.ch{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px;cursor:pointer;transition:all 0.3s ease;font-family:var(--fd);text-align:left;color:var(--text)}
+.ch:hover{border-color:var(--accent);background:rgba(124,106,239,0.06);transform:translateY(-2px);box-shadow:0 8px 24px rgba(124,106,239,0.08)}
+.ch:active{transform:translateY(0)}.ch-l{font-weight:600;color:var(--bright);margin-bottom:4px;font-size:15px}.ch-s{font-size:12px;color:var(--dim)}
+.cal{background:rgba(124,106,239,0.06);border:1px solid rgba(124,106,239,0.12);border-radius:10px;padding:14px 18px;margin:14px 0;font-family:var(--fd);font-size:13px;color:var(--purple);display:flex;align-items:center;gap:10px}
+.dl{background:var(--red-d);border:1px solid rgba(239,68,68,0.15);border-radius:10px;padding:14px 18px;margin:14px 0;font-family:var(--fd);font-size:13px;color:#fca5a5;display:flex;align-items:center;gap:10px}
+.ev{background:linear-gradient(180deg,rgba(12,18,32,0.5),rgba(12,18,32,0.9));border:1px solid var(--border);border-radius:16px;padding:32px 24px;margin:24px 0;text-align:center;backdrop-filter:blur(8px)}
+.sr{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);font-family:var(--fd);font-size:14px}
+.sr-l{color:var(--dim)}.sr-v{font-weight:600}
+.cg{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.cc{background:var(--surface);border-radius:16px;padding:20px;text-align:center;backdrop-filter:blur(8px)}
+.hr-noise{font-family:var(--fd);font-size:12px;color:var(--dim);background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:10px;padding:12px 16px;margin:14px 0;line-height:1.6}
+.hr-noise strong{color:#94a3b8;font-weight:500}
+
+.btn{font-family:var(--fd);cursor:pointer;border:none;outline:none;font-weight:600;transition:all 0.25s;border-radius:12px;font-size:15px;padding:16px 32px;width:100%;letter-spacing:0.3px}
+.btn:hover{transform:translateY(-2px)}.btn:active{transform:translateY(0)}
+.btn-go{background:linear-gradient(135deg,#7c6aef,#5b4bd6);color:#fff;box-shadow:0 6px 24px rgba(124,106,239,0.25)}
+.btn-gn{background:linear-gradient(135deg,var(--green),#16a34a);color:#fff;box-shadow:0 6px 24px rgba(52,211,153,0.2)}
+.btn-gh{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--dim);font-weight:500}
+.btn-gh:hover{border-color:rgba(255,255,255,0.15);color:var(--text)}
+
+.en{animation:fu 0.6s cubic-bezier(0.22,1,0.36,1) both}
+@keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.d1{animation-delay:0.08s}.d2{animation-delay:0.16s}.d3{animation-delay:0.24s}.d4{animation-delay:0.32s}.d5{animation-delay:0.4s}
+
+#ct::-webkit-scrollbar{width:4px}#ct::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:4px}
+@media(max-width:600px){#sc{padding:28px 18px 60px}}
+</style>
+</head>
+<body>
+<canvas id="bgC"></canvas>
+<div id="app">
+  <div id="pW"><div id="pB"></div></div>
+  <div id="hdr"><div class="logo">Simulation</div><div class="wdots" id="dots"></div></div>
+  <div id="ct"><div id="sc"></div></div>
+  <div id="ft"><span>ASANTIAL &middot; Employer Branding, das nicht auf dich wartet.</span></div>
+</div>
+<script>
+// ── STARFIELD ──
+(function(){
+  var c=document.getElementById("bgC"),x=c.getContext("2d"),stars=[],neb=[];
+  function rz(){c.width=innerWidth;c.height=innerHeight;ini();}
+  function ini(){
+    stars=[];neb=[];
+    for(var i=0;i<160;i++)stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.2+0.2,s:Math.random()*0.12+0.02,o:Math.random()});
+    for(var j=0;j<3;j++)neb.push({x:Math.random()*c.width,y:Math.random()*c.height,rx:Math.random()*300+150,ry:Math.random()*200+100,h:Math.random()*60+240,a:Math.random()*0.025+0.008,dx:Math.random()*0.08-0.04,dy:Math.random()*0.06-0.03});
+  }
+  var t=0;
+  function draw(){
+    t+=0.003;x.fillStyle="rgba(5,8,15,0.12)";x.fillRect(0,0,c.width,c.height);
+    for(var n=0;n<neb.length;n++){var nb=neb[n];nb.x+=nb.dx;nb.y+=nb.dy;if(nb.x<-200)nb.x=c.width+200;if(nb.x>c.width+200)nb.x=-200;if(nb.y<-200)nb.y=c.height+200;if(nb.y>c.height+200)nb.y=-200;var g=x.createRadialGradient(nb.x,nb.y,0,nb.x,nb.y,nb.rx);g.addColorStop(0,"hsla("+nb.h+",60%,40%,"+(nb.a+Math.sin(t+n)*0.005)+")");g.addColorStop(1,"transparent");x.fillStyle=g;x.fillRect(nb.x-nb.rx,nb.y-nb.ry,nb.rx*2,nb.ry*2);}
+    for(var i=0;i<stars.length;i++){var s=stars[i];s.o+=Math.sin(t*2+i)*0.003;var o=Math.max(0.1,Math.min(1,s.o));x.beginPath();x.arc(s.x,s.y,s.r,0,Math.PI*2);x.fillStyle="rgba(200,210,230,"+o+")";x.fill();s.y-=s.s;if(s.y<-2){s.y=c.height+2;s.x=Math.random()*c.width;}}
+    requestAnimationFrame(draw);
+  }
+  addEventListener("resize",rz);rz();x.fillStyle="rgb(5,8,15)";x.fillRect(0,0,c.width,c.height);draw();
+})();
+
+// ── GAME ──
+(function(){
+"use strict";
+
+var DAYS=["Montag","Dienstag","Mittwoch","Donnerstag","Freitag"];
+
+// 8 scenes across 5 days (20% shorter than 10)
+var WEEK=[
+  // ── MO: 2 scenes ──
+  {day:"Montag",date:"13. Januar",
+    intro:"Der Kaffee dampft, der Kalender ist geblockt. Heute willst du endlich die Mitarbeiterinterviews organisieren, die die Agentur seit zwei Wochen von dir erwartet. Ohne Interviews keine EVP-Analyse. Ohne EVP keine Kampagne. Ohne Kampagne kein Auftritt auf der Karrieremesse im Mai.",
+    noise:"\uD83E\uDD12 3 Krankmeldungen auf dem Tisch &middot; \uD83D\uDCDE Lohnbuchhaltung hat R\u00fcckfragen &middot; \uD83C\uDF93 Azubi-Zwischengespr\u00e4ch um 15 Uhr",
+    thought:"Ich muss nur die Interviews planen. Zehn Leute ansprechen, Termine finden. Das schaff ich heute locker.",
+    ebTask:{name:"Mitarbeiterinterviews organisieren",time:"09:00 \u2013 12:00",icon:"\uD83D\uDCCB"},
+    scenes:[
+      {type:"email",time:"08:47",from:"julia.wendt@markenagentur-kp.de",subject:"Status Mitarbeiterinterviews \u2013 dringend",badge:"agency",
+        body:"Kurze Erinnerung: Wir br\u00e4uchten bis Mittwoch die Terminbest\u00e4tigungen f\u00fcr die Interviews. Ohne die k\u00f6nnen wir die Analysephase nicht abschlie\u00dfen und der Zeitplan verschiebt sich.",urgent:true,
+        cA:{l:"Ehrlich: Noch nicht angefangen",s:"Transparent, aber die Agentur passt den Zeitplan an.",
+          r:"Julia antwortet professionell, aber du sp\u00fcrst die Ern\u00fcchterung. Sie schickt einen aktualisierten Zeitplan \u2013 zwei Wochen Verz\u00f6gerung. Zwei Wochen, die du nicht hast. Danach das Azubi-Zwischengespr\u00e4ch: Lena hat Probleme in der Buchhaltung. Noch ein Thema, das Aufmerksamkeit braucht."},
+        cB:{l:"\u201EBin dran, kommt diese Woche\u201C",s:"Kauft dir Zeit. Theoretisch.",
+          r:"Julia bedankt sich. Jetzt musst du es aber auch wirklich schaffen. Zwischen den Krankmeldungen und dem Azubi-Gespr\u00e4ch mit Lena schaffst du es, drei Kollegen anzuschreiben. Drei von zehn. Kein gro\u00dfer Wurf."}},
+      {type:"slack",time:"10:15",from:"Thomas Merkel",role:"Gesch\u00e4ftsf\u00fchrer",avatar:"TM",avatarBg:"#dc2626",
+        msg:"Ich brauche f\u00fcr den Beirat n\u00e4chste Woche eine Pr\u00e4sentation: Was bringt uns das Employer Branding konkret? Am besten mit Zahlen. Kannst du das bis Donnerstag vorbereiten?",tag:"@dringend",urgent:true,
+        cA:{l:"Zusagen \u2013 Pr\u00e4sentation vorbereiten",s:"Thomas' Priorit\u00e4t = deine Priorit\u00e4t.",
+          r:"Du sagst zu und merkst sofort: Employer Branding in Zahlen fassen \u2013 Cost per Hire, Time to Fill, Fluktuationskosten \u2013 das wird ein ganzer Tag. Mindestens. Die Interviews? Morgen. Bestimmt."},
+        cB:{l:"Um eine Woche verl\u00e4ngern",s:"F\u00fcr saubere Zahlen brauchst du mehr Zeit.",
+          r:"Thomas antwortet: \u201EDer Beirat ist n\u00e4chste Woche. Nicht \u00fcbern\u00e4chste.\u201C \u2013 Du sagst zu. Nat\u00fcrlich."}}
+    ],
+    evening:"21:30 \u2013 Du sitzt am Laptop und googelst \u201EEmployer Branding ROI Kennzahlen\u201C. Die Artikel sind \u00fcberzeugend. Du bist es noch nicht."},
+
+  // ── DI: 1 scene ──
+  {day:"Dienstag",date:"14. Januar",
+    intro:"Heute die Pr\u00e4sentation f\u00fcr den Beirat vorbereiten. Employer Branding in harte Zahlen fassen, die ein Vorstand versteht. Zwischen zwei Vorstellungsgespr\u00e4chen und einer Exit-Befragung.",
+    noise:"\uD83E\uDD1D Vorstellungsgespr\u00e4ch 10:00 (Sachbearbeitung) &middot; \uD83D\uDEAA Exit-Interview 13:30 (Vertrieb) &middot; \uD83E\uDD1D Vorstellungsgespr\u00e4ch 15:00 (Entwicklung)",
+    thought:"Cost per Hire, Fluktuation, Time to Fill... Ich kenne die Begriffe. Aber unsere eigenen Zahlen zusammentragen \u2013 zwischen zwei Interviews und einer K\u00fcndigung? Das wird sportlich.",
+    ebTask:{name:"Beirats-Pr\u00e4sentation & EB-Zahlen",time:"Die L\u00fccken dazwischen",icon:"\uD83D\uDCCA"},
+    scenes:[
+      {type:"email",time:"14:20",from:"julia.wendt@markenagentur-kp.de",subject:"Analyse-Update \u2013 Zeitplan-Anpassung",badge:"agency",
+        body:"Die Desk Research ist abgeschlossen, aber f\u00fcr die Arbeitgeberpositionierung brauchen wir die Mitarbeiterinterviews. Realistisch k\u00f6nnen wir die Analysephase fr\u00fchestens Ende Februar abschlie\u00dfen.",urgent:true,
+        cA:{l:"Zeitplan akzeptieren",s:"Ende Februar. Die Messe ist im Mai. Wird eng.",
+          r:"Ende Februar Analyse, M\u00e4rz Konzept, April Umsetzung, Mai Messe. Auf dem Papier machbar. In der Realit\u00e4t? Du wei\u00dft es besser. Das Exit-Interview am Nachmittag best\u00e4tigt es: Der Vertriebler geht, weil \u201Edas Unternehmen keine klare Identit\u00e4t als Arbeitgeber hat.\u201C Genau das Problem, das du l\u00f6sen willst. Wenn du dazu k\u00e4mst."},
+        cB:{l:"Agentur dr\u00e4ngen: \u201EMitte Februar\u201C",s:"Du setzt einen engeren Termin.",
+          r:"Julia antwortet h\u00f6flich: \u201EGerne, aber dann brauchen wir die Interviewtermine bis Freitag.\u201C Der Ball liegt wieder bei dir. Wo er die ganze Zeit lag. Zwischen den Vorstellungsgespr\u00e4chen schaffst du eine Folie der Pr\u00e4sentation. Eine."}}
+    ],
+    evening:"22:15 \u2013 Folie 7: \u201EROI-Projektion\u201C mit Platzhalter-Diagramm. Du starrst es an. Glaubt mir das jemand? Glaubst du es dir selbst?"},
+
+  // ── MI: 2 scenes ──
+  {day:"Mittwoch",date:"15. Januar",
+    intro:"Halbzeit. Die Pr\u00e4sentation ist halbfertig, die Interviews nicht organisiert. Heute musst du beides gleichzeitig schaffen. Nebenbei: Ein Onboarding-Gespr\u00e4ch mit der neuen Sachbearbeiterin und die Azubi-Beurteilungen sind f\u00e4llig.",
+    noise:"\uD83D\uDC4B Onboarding Sachbearbeiterin 09:30 &middot; \uD83D\uDCDD Azubi-Beurteilungen (3 St\u00fcck, Frist Freitag) &middot; \uD83D\uDCE7 28 ungelesene Mails",
+    thought:"Wenn ich heute die Interviews wenigstens ansto\u00dfe, kann ich Julia Freitag was schicken. Die Pr\u00e4sentation mache ich heute Abend fertig. Irgendwie.",
+    ebTask:{name:"Interviews organisieren & Pr\u00e4sentation",time:"Die L\u00fccken dazwischen",icon:"\uD83C\uDFAF"},
+    scenes:[
+      {type:"slack",time:"09:20",from:"Sarah Becker",role:"Teamleiterin Entwicklung",avatar:"SB",avatarBg:"#2563eb",
+        msg:"Hey, kurze Info: Drei Leute aus meinem Team wollen nicht an den Interviews teilnehmen. Sie verstehen nicht, wof\u00fcr das gut sein soll. Kannst du das kl\u00e4ren?",tag:null,urgent:false,
+        cA:{l:"Pers\u00f6nlich mit den dreien sprechen",s:"Vertrauen schafft man nicht per E-Mail.",
+          r:"Zwei gute Gespr\u00e4che. Der dritte bleibt skeptisch: \u201EWir haben echte Probleme hier, und ihr macht Marketing?\u201C Das sitzt. Zwei Stunden weg \u2013 daf\u00fcr ist das Onboarding-Gespr\u00e4ch auf 20 Minuten geschrumpft. Die Neue merkt das."},
+        cB:{l:"Sarah bitten, das intern zu kl\u00e4ren",s:"Du hast heute keine zwei Stunden.",
+          r:"Sarah schreibt sp\u00e4ter: \u201EDie wollen das von HR h\u00f6ren.\u201C Du schickst eine Sammel-Mail zwischen zwei Azubi-Beurteilungen. Ob die \u00fcberzeugt, ist fraglich."}},
+      {type:"slack",time:"14:30",from:"Thomas Merkel",role:"Gesch\u00e4ftsf\u00fchrer",avatar:"TM",avatarBg:"#dc2626",
+        msg:"Wie l\u00e4uft\u2019s mit der Pr\u00e4sentation? Der Beirat will harte Fakten, keine Agentur-Slides. Und: Kannst du auch was zur Messe im Mai sagen?",tag:null,urgent:true,
+        cA:{l:"\u201EKommt morgen fr\u00fch\u201C",s:"Bedeutet: Heute bis Mitternacht.",
+          r:"Thomas antwortet mit einem Daumen hoch. Die Zahlen zur Messe? Du improvisierst: \u201EKampagne steht Mai bereit.\u201C Ob das stimmt, h\u00e4ngt von der Agentur ab. Also nicht von dir."},
+        cB:{l:"Ehrlich: \u201EDie Zahlen sind schwieriger als gedacht\u201C",s:"Unter-Versprechen, \u00fcber-Liefern?",
+          r:"Thomas ruft an. 20 Minuten. Er will verstehen, warum. Du erkl\u00e4rst, er h\u00f6rt zu: \u201EIch brauche trotzdem was f\u00fcr Donnerstag.\u201C Die drei Azubi-Beurteilungen schreibst du zwischen 22 und 23 Uhr."}}
+    ],
+    evening:"23:10 \u2013 K\u00fcchentisch. Kinder schlafen. Folie 7 zeigt immer noch ein Platzhalter-Diagramm. Du ersetzt es durch eine konservative Sch\u00e4tzung und hoffst, dass niemand nachfragt."},
+
+  // ── DO: 1 scene ──
+  {day:"Donnerstag",date:"16. Januar",
+    intro:"10 Uhr, Meetingraum 1. Thomas, Kathrin und zwei Beiratsmitglieder. Du hast 20 Minuten, um zu erkl\u00e4ren, warum Employer Branding kein \u201ENice-to-have\u201C ist. Dein Magen sagt: Heute nicht.",
+    noise:"\uD83D\uDCDE R\u00fcckruf Arbeitsrechtler (Fristverl\u00e4ngerung) &middot; \uD83C\uDF93 Azubi-Beurteilungen abgeben &middot; \uD83D\uDCE7 Julia wartet auf Interview-Update",
+    thought:"14 Folien. D\u00fcnne Datenbasis. Und das Gef\u00fchl, dass ich eine Geschichte verkaufe, die ich selbst nicht ganz verstehe.",
+    ebTask:{name:"Pr\u00e4sentation halten & \u00fcberzeugen",time:"10:00 Uhr",icon:"\uD83C\uDFAC"},
+    scenes:[
+      {type:"slack",time:"10:55",from:"Pr\u00e4sentation",role:"Gerade passiert",avatar:"\uD83C\uDFAC",avatarBg:"#475569",
+        msg:"Vorbei. Beirat fand es \u201Einteressant\u201C. Kathrin: \u201EGute Richtung, konkretere Meilensteine.\u201C Ein Beiratsmitglied: \u201EUnd das schaffen Sie bis Mai?\u201C",tag:null,urgent:true,
+        cA:{l:"\u201EJa, der Zeitplan steht.\u201C",s:"Selbstbewusst. Details nachliefern.",
+          r:"Du sagst es mit einer Zuversicht, die du nicht f\u00fchlst. Kathrin schaut dich an. Sp\u00e4ter im Flur: \u201EDu wei\u00dft, dass du das jetzt liefern musst, oder?\u201C Nachmittags schreibst du Julia eine Mail: \u201EInterviewtermine kommen morgen.\u201C Morgen. Wieder morgen."},
+        cB:{l:"\u201EAmbitioniert, aber machbar\u201C",s:"Ehrlich mit Einschr\u00e4nkung.",
+          r:"Thomas: \u201EAmbitioniert klingt nach Risiko.\u201C Kathrin l\u00e4chelt m\u00fcde. Ihr kennt die Wahrheit: Es h\u00e4ngt an der Agentur. Und an den Interviews, die du nicht organisiert hast."}}
+    ],
+    evening:"20:00 \u2013 \u201EWie war die Pr\u00e4sentation?\u201C \u2013 \u201EGanz gut.\u201C \u2013 Und meinst: Ich habe Dinge versprochen, die ich nicht kontrolliere, weil ich ein Projekt moderiere, das jemand anderes umsetzt."},
+
+  // ── FR: 2 scenes ──
+  {day:"Freitag",date:"17. Januar",
+    intro:"Letzter Tag. Interviews nicht organisiert. Analyse h\u00e4ngt. Messe r\u00fcckt n\u00e4her. Du hast diese Woche viel gearbeitet \u2013 aber fast nichts davon war Employer Branding. Denn das macht ja die Agentur. Theoretisch.",
+    noise:"\uD83E\uDD1D Probezeit-Gespr\u00e4ch 09:00 &middot; \uD83D\uDCDD Stellenausschreibung freigeben &middot; \uD83D\uDCB0 Gehaltsanpassungen Q1 pr\u00fcfen",
+    thought:"Ich moderiere. Die Agentur setzt um. Aber wenn die Agentur auf mich wartet und ich auf das Tagesgesch\u00e4ft... wer macht dann eigentlich Employer Branding?",
+    ebTask:{name:"Interviews endlich anschieben",time:"09:00 \u2013 12:00",icon:"\uD83D\uDCDE"},
+    scenes:[
+      {type:"email",time:"08:45",from:"info@karrieremesse-sued.de",subject:"Karrieremesse S\u00fcd \u2013 Materialien-Deadline",badge:"normal",
+        body:"Die Deadline f\u00fcr Standgestaltung und Kampagnenmaterialien ist der 15. April. Bitte senden Sie Konzept, Key Visuals und Stellenanzeigen-Auswahl.",urgent:true,
+        cA:{l:"Deadline in den Projektplan aufnehmen",s:"15. April. Drei Monate. Analyse nicht mal fertig.",
+          r:"Analyse: Ende Februar. Konzept: M\u00e4rz. Kampagne UND Messematerialien: April. Alles m\u00fcsste perfekt laufen. Nichts l\u00e4uft perfekt. Noch nie. Zwischen dem Probezeitgespr\u00e4ch und den Gehaltsanpassungen schaffst du es, zwei weitere Kollegen f\u00fcr die Interviews anzuschreiben. F\u00fcnf von zehn. In einer ganzen Woche."},
+        cB:{l:"Thomas warnen, dass Mai knapp wird",s:"Fr\u00fch warnen statt sp\u00e4t entt\u00e4uschen.",
+          r:"Thomas ruft an: \u201E40.000 Euro f\u00fcr die Messe eingeplant. Das muss klappen.\u201C Du erkl\u00e4rst die Abh\u00e4ngigkeiten. Er: \u201EDaf\u00fcr haben wir doch die Agentur.\u201C Ja. Daf\u00fcr habt ihr die Agentur."}},
+      {type:"slack",time:"11:30",from:"Dr. Kathrin Vogt",role:"Personalchefin",avatar:"KV",avatarBg:"#7c3aed",
+        msg:"Kurzes Wochenfazit: Wie stehen wir beim EB? Hast du das Gef\u00fchl, dass wir die Agentur und das Projekt im Griff haben?",tag:null,urgent:true,
+        cA:{l:"Ehrlich: \u201EIch moderiere mehr als ich gestalte\u201C",s:"Die Wahrheit. Tut weh.",
+          r:"Kathrin schweigt. Dann: \u201EDas habe ich bef\u00fcrchtet. Wir sind abh\u00e4ngig von der Agentur-Timeline, und du hast keine Kapazit\u00e4t, die L\u00fccken zu f\u00fcllen. So wird das nichts.\u201C Sie hat recht."},
+        cB:{l:"\u201EWir sind auf Kurs, n\u00e4chste Woche kommen die Interviews\u201C",s:"N\u00e4chste Woche. Seit drei Wochen.",
+          r:"Kathrin nickt. Du wei\u00dft, dass sie dir nicht glaubt. Du glaubst dir auch nicht. Die Wahrheit: Du hast weder die Zeit noch die Werkzeuge, um das Projekt wirklich zu steuern."}}
+    ],
+    evening:"17:30 \u2013 Du f\u00e4hrst nach Hause und denkst: Wann bin ich vom Gestalter zum Verwalter geworden? Und warum f\u00fchlt sich Employer Branding an wie etwas, das ich manage \u2013 aber nie selbst in der Hand habe?"}
+];
+
+var S={ph:"intro",day:0,sc:0,ch:[]};
+function sp(p){document.getElementById("pB").style.width=p+"%";}
+function sd(){var h="";for(var i=0;i<5;i++){h+='<div class="wd '+(i<S.day?"dn":i===S.day?"nw":"")+'"></div>';}document.getElementById("dots").innerHTML=h;}
+function R(h){document.getElementById("sc").innerHTML=h;document.getElementById("ct").scrollTop=0;sd();}
+
+// ── INTRO ──
+function showIntro(){
+  S={ph:"intro",day:0,sc:0,ch:[]};sp(0);sd();
+  R(
+    '<div style="min-height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">'+
+      '<div class="lb en" style="color:var(--accent);margin-bottom:20px">Eine interaktive Geschichte</div>'+
+      '<h1 class="hl hl-xl en d1" style="margin-bottom:16px">Eine Woche als<br>HR-Manager</h1>'+
+      '<p class="sub en d2" style="max-width:400px;margin:0 auto 40px">\u00dcber gute Vors\u00e4tze, Agenturen und den ganz normalen Wahnsinn im Mittelstand.</p>'+
+      '<div style="max-width:440px;text-align:left" class="en d3">'+
+        '<div class="st"><p>Du bist Personalleiter. 250 Mitarbeiter, Produktion und Verwaltung. Einstellungen, K\u00fcndigungen, Azubis, Krankmeldungen, Gehaltsrunden \u2013 der \u00fcbliche Irrsinn. Dazu: ein Employer-Branding-Projekt, das nicht vorankommt.</p></div>'+
+        '<div class="st"><p>Vor drei Monaten hast du eine Agentur beauftragt: EVP entwickeln, Kampagne f\u00fcr die Karrieremesse im Mai. Alles richtig gemacht.</p></div>'+
+        '<div class="st"><p>Das Problem: Die Agentur wartet auf dich. Interviews organisieren, Feedback geben, intern abstimmen. Und du? Du kommst nicht dazu. <em>Nie.</em></p></div>'+
+        '<div class="dl"><span>\u23F0</span><span>Karrieremesse S\u00fcd \u2013 15. Mai \u2013 noch 4 Monate</span></div>'+
+        '<div class="th">Diese Woche nehme ich mir die Zeit. Interviews, Pr\u00e4sentation f\u00fcr den Beirat, Fahrplan f\u00fcr Kathrin. Alles.</div>'+
+      '</div>'+
+      '<div class="en d4" style="margin-top:32px;width:100%;max-width:440px"><button class="btn btn-go" onclick="go()">Montag starten</button></div>'+
+    '</div>');
+}
+
+function go(){S.ph="play";S.day=0;S.sc=0;dayI();}
+
+function dayI(){
+  var d=WEEK[S.day];sp((S.day/5)*100);
+  R(
+    '<div class="dh en"><div class="lb">'+d.date+'</div><h2 class="hl hl-lg">'+d.day+'</h2></div>'+
+    '<div class="st en d1"><p>'+d.intro+'</p></div>'+
+    '<div class="hr-noise en d2"><strong>Dein Tag au\u00dferdem:</strong> '+d.noise+'</div>'+
+    '<div class="th en d3">'+d.thought+'</div>'+
+    '<div class="cal en d4"><span>'+d.ebTask.icon+'</span><span>'+d.ebTask.time+' \u2013 '+d.ebTask.name+'</span></div>'+
+    '<div class="en d5" style="margin-top:28px"><button class="btn btn-gh" onclick="sc(0)">Weiter \u2192</button></div>');
+}
+
+function sc(idx){
+  var d=WEEK[S.day];if(idx>=d.scenes.length){eve();return;}
+  S.sc=idx;var i=d.scenes[idx];var m="";
+  if(i.type==="slack"){
+    m='<div class="sk '+(i.urgent?"sk-u":"sk-n2")+' en d1"><div class="sk-h"><div class="sk-a" style="background:'+i.avatarBg+'">'+i.avatar+'</div><div><div class="sk-n">'+i.from+' <span class="sk-r">\u00b7 '+i.role+'</span></div></div><div class="sk-t">'+i.time+'</div></div><div class="sk-b">'+i.msg+(i.tag?' <span class="sk-tg">'+i.tag+'</span>':'')+'</div></div>';
+  } else {
+    var bc=i.badge==="agency"?"bdg-a":i.urgent?"bdg-u":"bdg-n";
+    var bl=i.badge==="agency"?"AGENTUR":i.urgent?"DRINGEND":"NEU";
+    m='<div class="em en d1"><div class="em-s">'+i.subject+' <span class="bdg '+bc+'">'+bl+'</span></div><div class="em-f">Von: '+i.from+' \u00b7 '+i.time+'</div><div class="em-b">'+i.body+'</div></div>';
+  }
+  R(
+    '<div class="dh en"><div class="lb">'+d.date+'</div><h2 class="hl hl-lg">'+d.day+'</h2></div>'+
+    '<div class="tb en">'+i.time+'</div>'+m+
+    '<div class="chs en d2">'+
+      '<div class="ch" onclick="pk('+idx+',1)"><div class="ch-l">'+i.cA.l+'</div><div class="ch-s">'+i.cA.s+'</div></div>'+
+      '<div class="ch" onclick="pk('+idx+',2)"><div class="ch-l">'+i.cB.l+'</div><div class="ch-s">'+i.cB.s+'</div></div>'+
+    '</div>');
+}
+
+function pk(idx,ab){
+  var d=WEEK[S.day];var i=d.scenes[idx];var c=ab===1?i.cA:i.cB;
+  sp(((S.day+(idx+1)/d.scenes.length)/5)*100);
+  S.ch.push({d:S.day,i:idx,c:ab});
+  R(
+    '<div class="dh en"><div class="lb">'+d.date+'</div><h2 class="hl hl-lg">'+d.day+'</h2></div>'+
+    '<div class="tb en">'+i.time+'</div>'+
+    '<div class="st en d1"><p>'+c.r+'</p></div>'+
+    '<div class="en d2" style="margin-top:24px"><button class="btn btn-gh" onclick="sc('+(idx+1)+')">Weiter \u2192</button></div>');
+}
+
+function eve(){
+  var d=WEEK[S.day];var em=["\uD83C\uDF19","\uD83D\uDCA1","\uD83D\uDE14","\uD83D\uDE36\u200D\uD83C\uDF2B\uFE0F","\uD83D\uDE2E\u200D\uD83D\uDCA8"];
+  sp(((S.day+1)/5)*100);
+  R(
+    '<div class="dh en"><div class="lb">'+d.date+'</div><h2 class="hl hl-lg">'+d.day+'</h2></div>'+
+    '<div class="ev en d1"><div style="font-size:44px;margin-bottom:16px">'+em[S.day]+'</div>'+
+      '<div class="st" style="margin:0"><p><em>'+d.evening+'</em></p></div></div>'+
+    '<div class="en d2" style="margin-top:24px"><button class="btn '+(S.day<4?"btn-gh":"btn-go")+'" onclick="'+(S.day<4?"nx()":"res()")+'">'+
+      (S.day<4?WEEK[S.day+1].day+" \u2192":"Woche auswerten")+'</button></div>');
+}
+
+function nx(){S.day++;S.sc=0;dayI();}
+
+// ── RESULT ──
+function res(){
+  S.ph="result";sp(100);
+  R(
+    '<div style="text-align:center;padding:32px 0" class="en">'+
+      '<div style="font-size:56px;margin-bottom:12px">\uD83D\uDCC9</div>'+
+      '<h2 class="hl hl-lg" style="margin-bottom:8px">Freitag, 17:30</h2>'+
+      '<p class="sub">F\u00fcnf Tage. Acht Entscheidungen. Und trotzdem.</p>'+
+    '</div>'+
+    '<div class="st en d1"><p>Einstellungen gef\u00fchrt, K\u00fcndigungen begleitet, Azubis beurteilt, Pr\u00e4sentationen gehalten. Alles richtig gemacht \u2013 und trotzdem: Das Employer Branding steht still.</p></div>'+
+    '<div style="margin:24px 0" class="en d2">'+
+      '<div class="sr"><span class="sr-l">Interviews organisiert</span><span class="sr-v" style="color:#fca5a5">5 von 10</span></div>'+
+      '<div class="sr"><span class="sr-l">Analyse abgeschlossen</span><span class="sr-v" style="color:#fca5a5">Nein</span></div>'+
+      '<div class="sr"><span class="sr-l">Kampagne f\u00fcr Messe</span><span class="sr-v" style="color:var(--amber)">Nicht begonnen</span></div>'+
+      '<div class="sr"><span class="sr-l">Beirat \u00fcberzeugt</span><span class="sr-v" style="color:var(--amber)">Teilweise</span></div>'+
+      '<div class="sr"><span class="sr-l">Agentur im Zeitplan</span><span class="sr-v" style="color:var(--red)">Nein</span></div>'+
+      '<div class="sr" style="border:none"><span class="sr-l">Projekt unter Kontrolle</span><span class="sr-v" style="color:var(--red)">Nein</span></div>'+
+    '</div>'+
+    '<div class="th en d3">Du managst ein Projekt, das jemand anderes umsetzt. Du moderierst \u2013 zwischen Agentur, Gesch\u00e4ftsf\u00fchrung und dem ganz normalen Personalleiter-Alltag. Aber du gestaltest nicht. Du kannst nicht. Du kommst nicht dazu.</div>'+
+    '<div class="dl en d4"><span>\u23F0</span><span>Karrieremesse \u2013 noch 16 Wochen \u2013 Analyse l\u00e4uft noch</span></div>'+
+    '<div class="en d5" style="margin-top:28px;text-align:center">'+
+      '<p class="sub" style="color:var(--purple);margin-bottom:16px">Was w\u00e4re, wenn du nicht mehr moderieren m\u00fcsstest \u2013<br>sondern selbst handeln k\u00f6nntest?</p>'+
+      '<button class="btn btn-gn" onclick="asa()">Gleiche Woche, mit ASANTIAL \u2192</button>'+
+    '</div>');
+}
+
+// ── ASANTIAL ──
+function asa(){
+  S.ph="asantial";
+  R(
+    '<div style="text-align:center;padding:28px 0" class="en">'+
+      '<div class="lb" style="color:var(--green);margin-bottom:16px">\u2726 MIT ASANTIAL</div>'+
+      '<h2 class="hl hl-lg" style="margin-bottom:8px">Dieselbe Woche.<br>Dieselben Unterbrechungen.</h2>'+
+      '<p class="sub" style="margin-bottom:4px">Aber du moderierst nicht mehr.</p>'+
+      '<p style="font-size:18px;color:var(--green);font-family:var(--fd);font-weight:600">Du gestaltest.</p>'+
+    '</div>'+
+
+    ad("Mo",
+      "Thomas braucht die Beirats-Pr\u00e4sentation? Du \u00f6ffnest ASANTIAL und erstellst sie in 20 Minuten \u2013 mit euren echten Zahlen: Cost per Hire, Fluktuationskosten, Time to Fill. Datenbasiert, nicht gegoogelt. Du passt die Story an, nicht die Daten.",
+      "Pr\u00e4sentation","Fertig in 20 Minuten statt einem ganzen Tag")+
+
+    ad("Di",
+      "Die Mitarbeiterinterviews? Du erstellst in ASANTIAL einen strukturierten Fragebogen, den die Mitarbeiter selbst ausf\u00fcllen \u2013 anonym, mobil, auswertbar. Zwischen den Vorstellungsgespr\u00e4chen schickst du den Link. Abends sind 7 Antworten da.",
+      "Interviews","7 Antworten am ersten Tag")+
+
+    ad("Mi",
+      "Kathrin will den 6-Monats-Fahrplan? Du l\u00e4sst dir in ASANTIAL eine Roadmap generieren \u2013 basierend auf eurem Zeitrahmen, der Messe-Deadline und Best Practices. In 20 Minuten steht der Plan. Du reviewst und pr\u00e4sentierst.",
+      "Fahrplan","Roadmap in 20 Minuten")+
+
+    ad("Do",
+      "Du gehst mit belastbaren Zahlen in die Pr\u00e4sentation. ASANTIAL hat die Interview-Ergebnisse ausgewertet, eure Position gegen 12 Wettbewerber gebenchmarkt und den ersten EVP-Entwurf erstellt. Du pr\u00e4sentierst Ergebnisse, keine Versprechen.",
+      "EVP-Analyse","Erster Entwurf liegt vor")+
+
+    ad("Fr",
+      "Die Messe-Deadline? Du hast die Antwort: Analyse l\u00e4uft, Konzept ist terminiert, Kampagne wird planm\u00e4\u00dfig fertig. Kathrin fragt, ob du das Projekt im Griff hast. Diesmal sagst du: Ja. Und meinst es auch.",
+      "Messe-Timeline","Gesichert")+
+
+    '<div class="th en" style="margin-top:20px">Gleicher Alltag. Gleiche Krankmeldungen, Azubis, Vorstellungsgespr\u00e4che. Aber diesmal hast du die Ergebnisse, wenn du sie brauchst \u2013 nicht wenn die Agentur sie liefert.</div>'+
+    '<div class="en" style="margin-top:28px"><button class="btn btn-gn" onclick="cmp()">Vergleich ansehen \u2192</button></div>');
+}
+
+function ad(s,t,task,stat){
+  return '<div style="display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--border)" class="en"><div style="width:36px;text-align:center;flex-shrink:0"><div style="font-size:11px;color:var(--dim);font-weight:600;font-family:var(--fd)">'+s+'</div><div style="width:8px;height:8px;border-radius:50%;background:var(--green);margin:6px auto 0"></div></div><div style="flex:1"><div style="font-size:14px;color:var(--text);line-height:1.7;margin-bottom:8px">'+t+'</div><div style="font-size:12px;color:var(--green);font-family:var(--fd);font-weight:500">'+task+' \u2013 '+stat+'</div></div></div>';
+}
+
+// ── COMPARE ──
+function cmp(){
+  S.ph="compare";
+  function cs(l,v,c){return '<div style="margin:10px 0"><div style="font-size:10px;color:var(--dim);margin-bottom:2px;font-family:var(--fd)">'+l+'</div><div style="font-size:16px;font-weight:600;color:'+c+';font-family:var(--fd)">'+v+'</div></div>';}
+  R(
+    '<div style="text-align:center;padding:28px 0" class="en">'+
+      '<div class="lb" style="color:var(--dim);margin-bottom:12px">Ergebnis</div>'+
+      '<h2 class="hl hl-lg">Deine Woche<br>im Vergleich</h2>'+
+    '</div>'+
+    '<div class="cg en d1">'+
+      '<div class="cc" style="border:1px solid rgba(239,68,68,0.15)"><div class="lb" style="color:var(--red);margin-bottom:14px">Ohne ASANTIAL</div>'+
+        cs("Interviews","5 / 10","#fca5a5")+cs("EVP-Analyse","Nicht fertig","#fca5a5")+cs("Pr\u00e4sentation","1 Tag Arbeit","var(--amber)")+cs("Kampagne","Nicht begonnen","#fca5a5")+cs("Messe","Gef\u00e4hrdet","var(--red)")+cs("Deine Rolle","Moderator","var(--dim)")+
+      '</div>'+
+      '<div class="cc" style="border:1px solid rgba(52,211,153,0.15)"><div class="lb" style="color:var(--green);margin-bottom:14px">Mit ASANTIAL</div>'+
+        cs("Interviews","10 / 10","#86efac")+cs("EVP-Analyse","Erster Entwurf","#86efac")+cs("Pr\u00e4sentation","20 Minuten","#86efac")+cs("Kampagne","In Planung","#86efac")+cs("Messe","Gesichert","var(--green)")+cs("Deine Rolle","Gestalter","var(--green)")+
+      '</div>'+
+    '</div>'+
+    '<div style="background:var(--green-d);border:1px solid rgba(52,211,153,0.12);border-radius:16px;padding:24px;margin:28px 0;text-align:center" class="en d2">'+
+      '<h3 class="hl hl-md" style="margin-bottom:10px;font-size:20px">ASANTIAL ersetzt nicht<br>deine Agentur.</h3>'+
+      '<p style="font-size:14px;color:var(--text);line-height:1.7;max-width:420px;margin:0 auto">Es gibt dir die Werkzeuge, selbst zu handeln. Du \u00f6ffnest ASANTIAL, wirst durch den Prozess gef\u00fchrt und hast Ergebnisse \u2013 wenn du sie brauchst, nicht wenn jemand anderes sie liefert.</p>'+
+    '</div>'+
+    '<div class="th en d3">Du wirst immer Einstellungen f\u00fchren, Azubis betreuen und Krankmeldungen bearbeiten. Die Frage ist nur: Steht dein Employer Branding trotzdem \u2013 oder wartet es, bis du mal Zeit hast?</div>'+
+    '<div class="en d4" style="margin-top:28px;display:flex;gap:10px">'+
+      '<button class="btn btn-gh" style="flex:1" onclick="showIntro()">Nochmal spielen</button>'+
+      '<button class="btn btn-gn" style="flex:1" onclick="window.open(\'https://asantial.de\',\'_blank\')">ASANTIAL entdecken</button>'+
+    '</div>');
+}
+
+window.go=go;window.sc=sc;window.pk=pk;window.nx=nx;
+window.res=res;window.asa=asa;window.cmp=cmp;window.showIntro=showIntro;
+showIntro();
+})();
+</script>
+</body>
+</html>
