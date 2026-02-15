@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASANTIAL – Das Betriebssystem für Employer Branding</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg-primary: #0a0a0f;
+            --color-bg-secondary: #12121a;
+            --color-bg-tertiary: #1a1a24;
+            --color-accent: #e8b849;
+            --color-accent-soft: #f5d98b;
+            --color-text-primary: #ffffff;
+            --color-text-secondary: #b8b8c4;
+            --color-text-muted: #878795;
+            --max-width: 1200px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .header-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 40px;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: var(--color-bg-primary);
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-accent-soft);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        section {
+            padding: 120px 40px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        /* Hero Section - S1-M1 */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 160px;
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #ffffff 0%, #b8b8c4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subline {
+            font-size: 1.35rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .body-text {
+            font-size: 1.15rem;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .cta-container {
+            margin-top: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-large {
+            padding: 18px 40px;
+            font-size: 1.1rem;
+        }
+
+        .microcopy {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Section Styles */
+        h2 {
+            font-size: 2.75rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 30px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-centered {
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* List Items */
+        .clarity-list {
+            list-style: none;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .clarity-list li {
+            font-size: 1.2rem;
+            padding: 25px 30px;
+            background: var(--color-bg-secondary);
+            border-radius: 12px;
+            border-left: 3px solid var(--color-accent);
+            transition: all 0.3s ease;
+        }
+
+        .clarity-list li:hover {
+            background: var(--color-bg-tertiary);
+            transform: translateX(5px);
+        }
+
+        /* Three Steps Grid - S1-M3 */
+        .three-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .step-card {
+            background: var(--color-bg-secondary);
+            padding: 40px 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .step-description {
+            color: var(--color-text-secondary);
+            font-size: 1.05rem;
+        }
+
+        .benefits-list {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .benefit-item {
+            font-size: 1.2rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 10px;
+        }
+
+        /* Professional Section - S1-M4 */
+        .professional-section {
+            background: linear-gradient(135deg, var(--color-bg-secondary) 0%, var(--color-bg-tertiary) 100%);
+            border-radius: 24px;
+            padding: 80px 60px;
+            margin: 120px auto;
+            border: 1px solid rgba(232, 184, 73, 0.2);
+        }
+
+        .benefit-tiles {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .benefit-tile {
+            background: var(--color-bg-primary);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-tile:hover {
+            border-color: var(--color-accent);
+        }
+
+        .benefit-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .benefit-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .benefit-description {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Before/After Section - S1-M5 */
+        .before-after-section {
+            background: var(--color-bg-secondary);
+            border-radius: 24px;
+            padding: 80px 60px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+            margin-top: 50px;
+        }
+
+        .comparison-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .before-column h3 {
+            color: #ff6b6b;
+        }
+
+        .after-column h3 {
+            color: #4ecdc4;
+        }
+
+        .comparison-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .comparison-list li {
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05rem;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        .comparison-list li::before {
+            content: "•";
+            position: absolute;
+            left: 10px;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .before-column .comparison-list li::before {
+            color: #ff6b6b;
+        }
+
+        .after-column .comparison-list li::before {
+            color: #4ecdc4;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 810px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            .subline { font-size: 1.15rem; }
+
+            section {
+                padding: 80px 20px;
+            }
+
+            .hero-section {
+                padding-top: 120px;
+                min-height: auto;
+            }
+
+            .three-steps,
+            .benefit-tiles,
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .professional-section,
+            .before-after-section {
+                padding: 50px 30px;
+                margin: 80px 20px;
+            }
+
+            .header-container {
+                padding: 0 20px;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Accent Highlights */
+        .highlight {
+            color: var(--color-accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">ASANTIAL</a>
+            <div class="nav-cta">
+                <a href="#contact" class="btn-primary">Einstiegsgespräch vereinbaren</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- S1-M1: Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Das Betriebssystem für Employer Branding.</h1>
+            <p class="subline">Für HR-Verantwortliche im Mittelstand, die ihre Arbeitgebermarke sicher, erklärbar und wirksam steuern.</p>
+            <p class="body-text">
+                Employer Branding ermöglicht HR, Wirkung zu entfalten.<br>
+                Nach innen. Nach außen.<br><br>
+                Voraussetzung dafür ist ein planvolles, zielgerichtetes Vorgehen. Und Steuerung.
+            </p>
+            <div class="cta-container">
+                <a href="#contact" class="btn-primary btn-large">Einstiegsgespräch vereinbaren</a>
+                <p class="microcopy">ca. 30 Minuten · unverbindlich · keine klassische Produktdemo</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- S1-M2: Wirkung braucht Steuerbarkeit -->
+    <section class="section-centered">
+        <h2>Nur wer steuert, erzielt Wirkung.</h2>
+        <p class="body-text">
+            Employer Branding entfaltet Wirkung dann, wenn HR nicht nur reagiert, sondern steuert.<br>
+            Nicht alles gleichzeitig. Nicht auf Zuruf. Sondern in einer Reihenfolge, die Sinn macht. Und zur Organisation passt.
+        </p>
+        <ul class="clarity-list">
+            <li>Klarheit darüber, wo Sie stehen</li>
+            <li>Klarheit darüber, welcher Schritt wann sinnvoll ist</li>
+            <li>Klarheit darüber, was bewusst noch nicht dran ist</li>
+        </ul>
+    </section>
+
+    <!-- S1-M3: Arbeiten entlang von Entscheidungen -->
+    <section class="section-centered">
+        <h2>Arbeiten entlang von Entscheidungen – nicht entlang von Maßnahmen.</h2>
+
+        <div class="three-steps">
+            <div class="step-card">
+                <div class="step-number">1.</div>
+                <div class="step-title">Einordnen</div>
+                <div class="step-description">Wo stehen wir?</div>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2.</div>
+                <div class="step-title">Entscheiden</div>
+                <div class="step-description">Welcher Schritt ist jetzt sinnvoll und nötig?</div>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3.</div>
+                <div class="step-title">Weiterarbeiten</div>
+                <div class="step-description">Ergebnisse anschließen statt neu starten.</div>
+            </div>
+        </div>
+
+        <div class="benefits-list">
+            <p class="benefit-item">Entscheidungen werden nachvollziehbar.</p>
+            <p class="benefit-item">Arbeit wird produktiv, durchgängig.</p>
+            <p class="benefit-item">Wirkung wird erklärbar.</p>
+        </div>
+    </section>
+
+    <!-- S1-M4: ASANTIAL Professional -->
+    <section class="professional-section section-centered">
+        <h2>ASANTIAL Professional</h2>
+        <p class="body-text">Wenn diese Unterstützung dauerhaft verfügbar sein soll.</p>
+
+        <div class="benefit-tiles">
+            <div class="benefit-tile">
+                <div class="benefit-icon">🔄</div>
+                <div class="benefit-title">Kontinuierliche Unterstützung</div>
+                <div class="benefit-description">Kontinuierliche Unterstützung statt Einzelimpulse.</div>
+            </div>
+            <div class="benefit-tile">
+                <div class="benefit-icon">⚙️</div>
+                <div class="benefit-title">Alle operativen Apps</div>
+                <div class="benefit-description">Zugriff auf alle operativen Apps.</div>
+            </div>
+            <div class="benefit-tile">
+                <div class="benefit-icon">🎯</div>
+                <div class="benefit-title">Anschlussfähige Ergebnisse</div>
+                <div class="benefit-description">Ergebnisse sind anschlussfähig und erklärbar.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- S1-M5: Vorher / Nachher -->
+    <section class="before-after-section">
+        <div class="section-centered">
+            <h2>Von viel Aufwand zu klarer Wirkung.</h2>
+            <p class="subline">Employer Branding im Projektmodus fühlt sich beschäftigt an. Als System wird es wirksam.</p>
+        </div>
+
+        <div class="comparison-grid">
+            <div class="comparison-column before-column">
+                <h3>Projektlogik. Aktionismus. Rechtfertigung.</h3>
+                <ul class="comparison-list">
+                    <li>Viele Einzelmaßnahmen</li>
+                    <li>Ständige Abstimmungen</li>
+                    <li>Impulse von außen bestimmen die Agenda</li>
+                    <li>Viel Arbeit – wenig Abschlussgefühl</li>
+                    <li>Ergebnisse schwer erklärbar</li>
+                    <li>Verantwortung ohne echte Kontrolle</li>
+                </ul>
+            </div>
+            <div class="comparison-column after-column">
+                <h3>Systemlogik. Klarheit. Wirkung.</h3>
+                <ul class="comparison-list">
+                    <li>Klare Linie statt Einzelaktionen</li>
+                    <li>Strukturierte Entscheidungen</li>
+                    <li>Eigene Prioritäten statt Fremdsteuerung</li>
+                    <li>Arbeit mit sichtbarem Fortschritt</li>
+                    <li>Nachvollziehbare Wirkungslogik</li>
+                    <li>Verantwortung mit Rückhalt</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section-centered" id="contact">
+        <h2>Eine Entscheidung muss sich tragen.</h2>
+        <p class="body-text">
+            Es geht um eine Arbeitsgrundlage,<br>
+            die Verantwortung stabiler macht.<br><br>
+            Im Einstiegsgespräch klären wir gemeinsam,<br>
+            wie das zu Ihrer Realität passt.
+        </p>
+        <div class="cta-container">
+            <a href="#" class="btn-primary btn-large">Einstiegsgespräch vereinbaren</a>
+            <p class="microcopy">ca. 30 Minuten · unverbindlich · keine klassische Produktdemo</p>
+        </div>
+    </section>
+
+    <!-- Footer spacing -->
+    <div style="height: 80px;"></div>
+
+    <script>
+        // Smooth scroll behavior for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll-based animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections for fade-in effect
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+
+        // Make hero section immediately visible
+        document.querySelector('.hero-section').style.opacity = '1';
+        document.querySelector('.hero-section').style.transform = 'translateY(0)';
+    </script>
+</body>
+</html>

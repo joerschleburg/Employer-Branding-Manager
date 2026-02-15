@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Der Employer Branding Manager - Eine Woche im Leben</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-bg: #ffffff;
+            --color-bg-secondary: #f8f9fa;
+            --color-bg-tertiary: #e9ecef;
+            --color-text: #212529;
+            --color-text-secondary: #6c757d;
+            --color-text-muted: #adb5bd;
+            --color-border: #dee2e6;
+            --color-accent: #0d6efd;
+            --color-warning: #ffc107;
+            --color-danger: #dc3545;
+            --color-success: #198754;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Intro */
+        .intro-screen {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .intro-screen h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--color-text);
+        }
+
+        .intro-screen .subtitle {
+            font-size: 1.2rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .intro-box {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .intro-box p {
+            margin-bottom: 15px;
+            color: var(--color-text-secondary);
+        }
+
+        .intro-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Game Screen */
+        .game-header {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .day-indicator {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-muted);
+            margin-bottom: 8px;
+        }
+
+        .time-display {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 15px;
+        }
+
+        .stress-meter {
+            margin-top: 15px;
+        }
+
+        .stress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: var(--color-text-secondary);
+        }
+
+        .stress-bar {
+            width: 100%;
+            height: 12px;
+            background: var(--color-bg-tertiary);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .stress-bar-fill {
+            height: 100%;
+            transition: width 0.5s ease, background-color 0.3s ease;
+            border-radius: 6px;
+        }
+
+        /* Inbox */
+        .inbox {
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .inbox-header {
+            background: var(--color-bg-secondary);
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--color-border);
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .inbox-item {
+            padding: 20px;
+            border-bottom: 1px solid var(--color-border);
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: flex;
+            align-items: start;
+            gap: 15px;
+        }
+
+        .inbox-item:hover {
+            background: var(--color-bg-secondary);
+        }
+
+        .inbox-item:last-child {
+            border-bottom: none;
+        }
+
+        .inbox-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .inbox-content {
+            flex: 1;
+        }
+
+        .inbox-from {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .urgency-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .urgency-high {
+            background: #fee;
+            color: var(--color-danger);
+        }
+
+        .urgency-medium {
+            background: #fef9e7;
+            color: #856404;
+        }
+
+        .inbox-subject {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Situation Card */
+        .situation-card {
+            background: var(--color-bg);
+            border: 2px solid var(--color-accent);
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .situation-header {
+            display: flex;
+            align-items: start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .situation-icon {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .situation-title {
+            flex: 1;
+        }
+
+        .situation-title h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--color-text);
+        }
+
+        .situation-meta {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .situation-body {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        .situation-body p {
+            margin-bottom: 15px;
+        }
+
+        .situation-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .situation-question {
+            background: var(--color-bg-secondary);
+            border-left: 3px solid var(--color-accent);
+            padding: 15px 20px;
+            margin-top: 20px;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        /* Choices */
+        .choices {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .choice {
+            background: var(--color-bg);
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
+            color: var(--color-text);
+            display: flex;
+            align-items: start;
+            gap: 12px;
+        }
+
+        .choice:hover {
+            border-color: var(--color-accent);
+            background: var(--color-bg-secondary);
+        }
+
+        .choice-letter {
+            font-weight: 700;
+            color: var(--color-accent);
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+
+        .choice-text {
+            flex: 1;
+        }
+
+        /* Feedback */
+        .feedback-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+
+        .feedback-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .feedback-content {
+            background: var(--color-bg);
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feedback-icon {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .feedback-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+            color: var(--color-text);
+        }
+
+        .feedback-body {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .feedback-body p {
+            margin-bottom: 12px;
+        }
+
+        .feedback-impact {
+            background: var(--color-bg-secondary);
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .impact-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .impact-item:last-child {
+            border-bottom: none;
+        }
+
+        .impact-negative {
+            color: var(--color-danger);
+            font-weight: 600;
+        }
+
+        .impact-positive {
+            color: var(--color-success);
+            font-weight: 600;
+        }
+
+        /* Button */
+        .btn {
+            background: var(--color-accent);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: block;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn:hover {
+            background: #0b5ed7;
+        }
+
+        .btn-secondary {
+            background: var(--color-bg-secondary);
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-bg-tertiary);
+        }
+
+        /* Ending Screen */
+        .ending-screen {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .ending-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .ending-screen h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--color-text);
+        }
+
+        .ending-stats {
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+        }
+
+        .stat-label {
+            color: var(--color-text-secondary);
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .reflection-box {
+            background: #fffbf0;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .reflection-box h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--color-text);
+        }
+
+        .reflection-box p {
+            color: var(--color-text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        .reflection-box ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        .reflection-box li {
+            padding: 8px 0 8px 25px;
+            position: relative;
+            color: var(--color-text-secondary);
+        }
+
+        .reflection-box li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+        }
+
+        .solution-box {
+            background: #e7f5ff;
+            border: 2px solid var(--color-accent);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .solution-box h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--color-accent);
+        }
+
+        .solution-box p {
+            color: var(--color-text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .app-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .app-item {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+            border: 1px solid rgba(13, 110, 253, 0.2);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .intro-screen h1 {
+                font-size: 1.5rem;
+            }
+
+            .time-display {
+                font-size: 1.4rem;
+            }
+
+            .situation-card {
+                padding: 20px;
+            }
+
+            .app-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Intro Screen -->
+        <div id="introScreen" class="intro-screen">
+            <h1>Der Employer Branding Manager</h1>
+            <p class="subtitle">Eine Woche im Leben</p>
+
+            <div class="intro-box">
+                <p><strong>Du bist HR-Leiter:in</strong> in einem Mittelstandsunternehmen mit 250 Mitarbeitenden.</p>
+                <p>Employer Branding ist deine Verantwortung – neben Recruiting, Onboarding und dem operativen Tagesgeschäft.</p>
+                <p><strong>Diese Woche</strong> läuft eine wichtige Kampagne, ihr sucht dringend Fachkräfte, und die Geschäftsführung fragt nach Ergebnissen.</p>
+                <p style="margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--color-border);">
+                    <strong>So funktioniert's:</strong> Du triffst Entscheidungen in verschiedenen Situationen. Jede Entscheidung hat Auswirkungen auf deinen Stress-Level und die Ergebnisse.
+                </p>
+            </div>
+
+            <button class="btn" onclick="startGame()">Woche starten</button>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="hidden">
+            <div class="game-header">
+                <div class="day-indicator" id="dayIndicator">MONTAG, 08:00 UHR</div>
+                <div class="time-display" id="timeDisplay">Eine normale Arbeitswoche</div>
+                <div class="stress-meter">
+                    <div class="stress-label">
+                        <span>Stress-Level</span>
+                        <span id="stressValue">20%</span>
+                    </div>
+                    <div class="stress-bar">
+                        <div class="stress-bar-fill" id="stressBar" style="width: 20%; background: var(--color-success);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="gameContent">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+
+        <!-- Ending Screen -->
+        <div id="endingScreen" class="hidden ending-screen">
+            <!-- Dynamic content -->
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="feedback-modal">
+        <div class="feedback-content" id="feedbackContent">
+            <!-- Dynamic content -->
+        </div>
+    </div>
+
+    <script>
+        // Game State
+        const gameState = {
+            currentDay: 1,
+            stress: 20,
+            efficiency: 100,
+            teamMorale: 80,
+            bossHappiness: 70,
+            currentScenario: 0,
+            decisions: []
+        };
+
+        // Scenarios
+        const scenarios = [
+            {
+                day: 'Montag, 08:00 Uhr',
+                icon: '📧',
+                from: 'Geschäftsführung',
+                urgency: 'high',
+                title: 'Dringend: Zahlen für Vorstandsmeeting',
+                body: `
+                    <p>Die Geschäftsführerin ruft dich an: "Ich brauche bis übermorgen die Employer Branding Kennzahlen. Der Aufsichtsrat will wissen, was die ganzen Maßnahmen bringen."</p>
+                    <p>Du hast keine strukturierte Übersicht. Die Daten liegen verstreut: Bewerberzahlen im ATS, Social Media Metriken in verschiedenen Tools, Mitarbeiterzufriedenheit in einer Excel-Liste von vor 6 Monaten.</p>
+                    <p>Gleichzeitig hast du heute noch 3 Vorstellungsgespräche und das Kampagnen-Briefing mit der Agentur.</p>
+                `,
+                question: 'Wie gehst du vor?',
+                choices: [
+                    {
+                        text: 'Alles andere absagen und zwei Tage lang Zahlen zusammensuchen',
+                        feedback: {
+                            icon: '😰',
+                            title: 'Kurzfristig gelöst, langfristig problematisch',
+                            body: `
+                                <p>Du sagst die Vorstellungsgespräche ab (die Kandidaten sind irritiert) und verbringst zwei Tage damit, Daten aus verschiedenen Quellen zusammenzutragen.</p>
+                                <p>Die Präsentation wird oberflächlich. Der Aufsichtsrat fragt nach: "Und wie hängt das zusammen? Was war die Strategie dahinter?"</p>
+                                <p>Du kannst nur reagieren, nicht erklären.</p>
+                            `,
+                            impact: {
+                                stress: 25,
+                                efficiency: -15,
+                                bossHappiness: -10
+                            }
+                        }
+                    },
+                    {
+                        text: 'Excel-Sheet in einer Nachtschicht zusammenbauen, parallel weitermachen',
+                        feedback: {
+                            icon: '🌙',
+                            title: 'Die typische Lösung',
+                            body: `
+                                <p>Du bleibst bis Mitternacht, baust eine Übersicht zusammen. Die Zahlen wirken gut, aber die Zusammenhänge bleiben unklar.</p>
+                                <p>Am nächsten Tag bist du erschöpft, im Kampagnen-Briefing unkonzentriert. Die Agentur merkt es.</p>
+                                <p>Die Geschäftsführerin ist halbwegs zufrieden, aber fragt: "Können wir das nicht irgendwie systematischer tracken?"</p>
+                            `,
+                            impact: {
+                                stress: 30,
+                                efficiency: -20,
+                                teamMorale: -5
+                            }
+                        }
+                    },
+                    {
+                        text: 'Offen kommunizieren: Wir brauchen ein System für kontinuierliches Tracking',
+                        feedback: {
+                            icon: '💬',
+                            title: 'Ehrlich, aber riskant',
+                            body: `
+                                <p>Du sprichst das Problem offen an: "Ich kann ad hoc eine Übersicht erstellen, aber ohne strukturiertes System wird das jedes Mal zeitraubend und oberflächlich."</p>
+                                <p>Die Geschäftsführerin: "Das klingt nach Ausrede. Ich brauche jetzt Zahlen, nicht Systemdiskussionen."</p>
+                                <p>Du lieferst eine schnelle Übersicht, aber das Grundproblem bleibt.</p>
+                            `,
+                            impact: {
+                                stress: 20,
+                                efficiency: -10,
+                                bossHappiness: -15
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                day: 'Montag, 14:00 Uhr',
+                icon: '🎨',
+                from: 'Agentur',
+                urgency: 'medium',
+                title: 'Kampagnen-Entwurf ist da',
+                body: `
+                    <p>Die Agentur präsentiert die neue Employer Branding Kampagne. Budget: 35.000 €.</p>
+                    <p>Die Kampagne ist visuell schön, aber generisch. "Wir sind ein Team" – "Gemeinsam erfolgreich" – Stock-Fotos von lachenden Menschen.</p>
+                    <p>Du hattest im Briefing klar gesagt: Authentizität, echte Mitarbeiter, konkrete Werte. Nichts davon ist umgesetzt.</p>
+                    <p>Dein Chef hat die Kampagne schon angekündigt. Start ist in zwei Wochen.</p>
+                `,
+                question: 'Was tust du?',
+                choices: [
+                    {
+                        text: 'Kampagne so durchwinken – keine Zeit für Überarbeitungen',
+                        feedback: {
+                            icon: '😔',
+                            title: 'Der Weg des geringsten Widerstands',
+                            body: `
+                                <p>Die Kampagne läuft. Die Reaktionen sind mäßig. Mitarbeiter erkennen sich nicht wieder. Bewerberzahlen steigen nicht.</p>
+                                <p>35.000 € für eine austauschbare Kampagne. Die Fachabteilung fragt: "Das war's? Das hätten wir auch intern machen können."</p>
+                                <p>Du ärgerst dich, dass du nicht klarer warst.</p>
+                            `,
+                            impact: {
+                                stress: 15,
+                                efficiency: -25,
+                                teamMorale: -15,
+                                bossHappiness: -20
+                            }
+                        }
+                    },
+                    {
+                        text: 'Überarbeitung fordern – mit allen Konsequenzen (Verzögerung, Diskussionen)',
+                        feedback: {
+                            icon: '⚔️',
+                            title: 'Der richtige Schritt – mit Kollateralschäden',
+                            body: `
+                                <p>Du bestehst auf Überarbeitung. Die Agentur ist genervt: "Das stand so nicht im Briefing." (Doch, stand es. Du hast nur kein strukturiertes Briefing-Dokument.)</p>
+                                <p>Die Geschäftsführung ist unzufrieden über die Verzögerung. Du verbringst Stunden in Nachjustierungen.</p>
+                                <p>Die Kampagne wird besser – aber der Prozess war zermürbend.</p>
+                            `,
+                            impact: {
+                                stress: 35,
+                                efficiency: -15,
+                                bossHappiness: -15
+                            }
+                        }
+                    },
+                    {
+                        text: 'Selbst nachbessern: Echte Mitarbeiterfotos organisieren, Texte anpassen',
+                        feedback: {
+                            icon: '🔧',
+                            title: 'Du machst es selbst – wieder',
+                            body: `
+                                <p>Du koordinierst Foto-Shootings, schreibst die Texte um, stimmst mit Marketing ab. Das dauert Tage.</p>
+                                <p>Die Kampagne wird besser, aber du bist komplett überlastet. Andere Aufgaben bleiben liegen.</p>
+                                <p>Du denkst: "Das kann doch nicht sein, dass ich hier alles selbst machen muss."</p>
+                            `,
+                            impact: {
+                                stress: 40,
+                                efficiency: -30,
+                                teamMorale: -10
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                day: 'Dienstag, 09:30 Uhr',
+                icon: '👔',
+                from: 'Fachabteilung IT',
+                urgency: 'high',
+                title: 'Wir brauchen JETZT Entwickler!',
+                body: `
+                    <p>Der IT-Leiter steht in deinem Büro: "Wir haben gerade ein Projekt gewonnen. Ich brauche bis Ende des Monats 2 Senior Entwickler. Was macht ihr eigentlich den ganzen Tag?"</p>
+                    <p>Du weißt: Der Markt ist leergefegt. Die Stellenanzeige ist seit Wochen online, 3 Bewerbungen, alle unpassend.</p>
+                    <p>Das Problem: Die Stellenanzeige ist generisch ("Wir suchen Entwickler (m/w/d)"), das Gehalt ist unter Markt, der Bewerbungsprozess dauert 6 Wochen.</p>
+                `,
+                question: 'Wie reagierst du?',
+                choices: [
+                    {
+                        text: 'Stellenanzeige auf mehr Portale schalten, Budget für Anzeigen erhöhen',
+                        feedback: {
+                            icon: '💸',
+                            title: 'Mehr vom Gleichen',
+                            body: `
+                                <p>Du schaltest die Anzeige auf 5 weiteren Portalen. Kosten: 8.000 €. Ergebnis: 2 weitere unpassende Bewerbungen.</p>
+                                <p>Das Problem ist nicht die Reichweite – sondern die Anzeige selbst und eure Positionierung als Arbeitgeber.</p>
+                                <p>Der IT-Leiter: "Ich dachte, wir machen jetzt Employer Branding?"</p>
+                            `,
+                            impact: {
+                                stress: 25,
+                                efficiency: -20,
+                                bossHappiness: -25
+                            }
+                        }
+                    },
+                    {
+                        text: 'Recruiting-Agentur beauftragen (teuer, aber vielleicht schneller)',
+                        feedback: {
+                            icon: '🏢',
+                            title: 'Das Problem auslagern',
+                            body: `
+                                <p>Die Agentur liefert 10 Profile. Keines passt richtig. Warum? Die Agentur kennt eure Arbeitgebermarke nicht, weil es keine klare Positionierung gibt.</p>
+                                <p>Du verbringst Stunden damit, der Agentur zu erklären, wer ihr seid. Am Ende kommt wenig dabei raus.</p>
+                                <p>Kosten: 25.000 €. Ergebnis: 0 Einstellungen.</p>
+                            `,
+                            impact: {
+                                stress: 30,
+                                efficiency: -25,
+                                bossHappiness: -30
+                            }
+                        }
+                    },
+                    {
+                        text: 'Ehrliche Analyse: Stellenanzeige + Prozess + Positionierung müssen grundsätzlich anders',
+                        feedback: {
+                            icon: '🎯',
+                            title: 'Die richtige Diagnose – aber keine Zeit für die Therapie',
+                            body: `
+                                <p>Du weißt genau, was das Problem ist: Die Stellenanzeige ist austauschbar, euer Arbeitgeberversprechen unklar, der Prozess zu lang.</p>
+                                <p>Aber: Das zu ändern braucht Zeit, die du nicht hast. Der IT-Leiter will Ergebnisse, nicht Konzepte.</p>
+                                <p>Du machst trotzdem Quick-Wins: Anzeige umschreiben, Prozess beschleunigen. Es wird besser – aber nicht gut.</p>
+                            `,
+                            impact: {
+                                stress: 35,
+                                efficiency: -15,
+                                teamMorale: -5
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                day: 'Mittwoch, 11:00 Uhr',
+                icon: '⭐',
+                from: 'Kununu',
+                urgency: 'high',
+                title: 'Negative Bewertung online',
+                body: `
+                    <p>Ein ehemaliger Mitarbeiter hat eine vernichtende Kununu-Bewertung geschrieben: "Schlechte Work-Life-Balance, keine Entwicklungsmöglichkeiten, leere Versprechen."</p>
+                    <p>Die Marketing-Abteilung ist alarmiert. Die Geschäftsführung will eine Stellungnahme – sofort.</p>
+                    <p>Problem: Du weißt, dass einiges davon stimmt. Ihr habt keine klaren Antwortrichtlinien für solche Fälle. Was ist rechtlich okay? Was macht es schlimmer?</p>
+                `,
+                question: 'Wie antwortest du?',
+                choices: [
+                    {
+                        text: 'Standardantwort: "Vielen Dank für Ihr Feedback, das entspricht nicht unseren Werten..."',
+                        feedback: {
+                            icon: '🤖',
+                            title: 'Die Roboter-Antwort',
+                            body: `
+                                <p>Deine Antwort wirkt generisch und defensiv. Andere Nutzer kommentieren: "Typisch, keine echte Auseinandersetzung."</p>
+                                <p>Die Bewertung bleibt stehen, der Schaden ist da. Kandidaten erwähnen im Vorstellungsgespräch die Bewertung.</p>
+                                <p>Du hättest gerne souveräner reagiert, aber wie?</p>
+                            `,
+                            impact: {
+                                stress: 20,
+                                teamMorale: -10,
+                                efficiency: -10
+                            }
+                        }
+                    },
+                    {
+                        text: 'Detailliert rechtfertigen und Gegendarstellung liefern',
+                        feedback: {
+                            icon: '⚖️',
+                            title: 'Der Abwehrreflex',
+                            body: `
+                                <p>Du schreibst eine lange Erklärung. Die Wirkung: Es sieht nach Rechtfertigung aus. Die Diskussion eskaliert.</p>
+                                <p>Andere Ex-Mitarbeiter schreiben jetzt auch. Das Marketing-Team ist genervt: "Können wir das nicht einfach löschen lassen?"</p>
+                                <p>Deine Antwort hat das Problem vergrößert.</p>
+                            `,
+                            impact: {
+                                stress: 35,
+                                teamMorale: -15,
+                                bossHappiness: -20,
+                                efficiency: -15
+                            }
+                        }
+                    },
+                    {
+                        text: 'Kurz, sachlich, offen: Anerkennen + Verbesserungen benennen',
+                        feedback: {
+                            icon: '🤝',
+                            title: 'Die beste schlechte Option',
+                            body: `
+                                <p>Du antwortest professionell: Erkennst die Kritik an, benennst konkrete Verbesserungen.</p>
+                                <p>Die Reaktionen sind besser, aber: Du hast wieder Stunden mit etwas verbracht, für das es klare Leitlinien geben müsste.</p>
+                                <p>Und die nächste Bewertung kommt bestimmt.</p>
+                            `,
+                            impact: {
+                                stress: 25,
+                                efficiency: -10,
+                                teamMorale: -5
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                day: 'Donnerstag, 15:00 Uhr',
+                icon: '📊',
+                from: 'Geschäftsführung',
+                urgency: 'high',
+                title: 'Reporting-Termin: Was haben wir erreicht?',
+                body: `
+                    <p>Die Geschäftsführerin sitzt vor dir: "Wir investieren jetzt seit einem Jahr in Employer Branding. Was hat es gebracht? Messbar."</p>
+                    <p>Du hast einzelne Erfolgsmeldungen: Mehr Social Media Follower, eine Kampagne lief gut, die Mitarbeiterzufriedenheit ist leicht gestiegen.</p>
+                    <p>Aber: Es gibt keine durchgängige Logik. Keine Roadmap. Keine klare Antwort auf: "Was war die Strategie? Und was kommt als nächstes?"</p>
+                `,
+                question: 'Was sagst du?',
+                choices: [
+                    {
+                        text: 'Die positiven Einzelergebnisse präsentieren und hoffen, dass es reicht',
+                        feedback: {
+                            icon: '📈',
+                            title: 'Der verzweifelte Optimismus',
+                            body: `
+                                <p>Du zeigst die Erfolge. Die Geschäftsführerin nickt, aber fragt dann: "Und warum haben wir trotzdem Probleme, Leute zu finden?"</p>
+                                <p>Du kannst es nicht schlüssig erklären. Die Antwort "Employer Branding braucht Zeit" wirkt wie eine Ausrede.</p>
+                                <p>Sie sagt: "Wir müssen da strukturierter werden. Überlege dir was."</p>
+                            `,
+                            impact: {
+                                stress: 30,
+                                bossHappiness: -25,
+                                efficiency: -10
+                            }
+                        }
+                    },
+                    {
+                        text: 'Ehrlich sein: Wir haben viel gemacht, aber unsystematisch',
+                        feedback: {
+                            icon: '💡',
+                            title: 'Ehrlichkeit – mit Risiko',
+                            body: `
+                                <p>Du sprichst aus, was ist: "Wir haben Maßnahmen umgesetzt, aber keine durchgängige Strategie. Wir reagieren, statt zu steuern."</p>
+                                <p>Die Geschäftsführerin: "Und warum hat mir das niemand früher gesagt? Was braucht es denn?"</p>
+                                <p>Du: "Ein System. Klare Entscheidungslogik. Durchgängige Prozesse."</p>
+                                <p>Sie: "Dann kümmere dich darum."</p>
+                            `,
+                            impact: {
+                                stress: 35,
+                                bossHappiness: -10,
+                                efficiency: -5
+                            }
+                        }
+                    },
+                    {
+                        text: 'Schuld nach außen schieben: Markt, Agentur, Budget zu gering',
+                        feedback: {
+                            icon: '👉',
+                            title: 'Die Ausweich-Strategie',
+                            body: `
+                                <p>Du schiebst es auf externe Faktoren. Die Geschäftsführerin durchschaut es: "Andere Unternehmen schaffen es auch."</p>
+                                <p>Deine Glaubwürdigkeit leidet. Sie zweifelt, ob du der/die Richtige für die Aufgabe bist.</p>
+                                <p>Du gehst frustriert aus dem Meeting.</p>
+                            `,
+                            impact: {
+                                stress: 40,
+                                bossHappiness: -35,
+                                teamMorale: -15,
+                                efficiency: -20
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                day: 'Freitag, 09:00 Uhr',
+                icon: '🔥',
+                from: 'Team',
+                urgency: 'high',
+                title: 'Dein Team ist erschöpft',
+                body: `
+                    <p>Deine HR-Kollegin kommt zu dir: "Ich kann nicht mehr. Ständig neue Anfragen, alles ist dringend, nichts ist durchdacht."</p>
+                    <p>"Wir laufen nur hinterher. Fachabteilungen fordern, Geschäftsführung fragt, Agenturen liefern Mist. Und wir müssen alles ausbaden."</p>
+                    <p>"Wann arbeiten wir eigentlich mal strategisch? Wann haben wir mal Zeit, Dinge richtig zu machen?"</p>
+                `,
+                question: 'Was antwortest du?',
+                choices: [
+                    {
+                        text: '"Ich weiß, es ist hart. Aber wir müssen durchhalten."',
+                        feedback: {
+                            icon: '😞',
+                            title: 'Die leere Durchhalteparole',
+                            body: `
+                                <p>Deine Kollegin nickt resigniert. Ihr wisst beide: Es wird nicht besser.</p>
+                                <p>In den nächsten Wochen häufen sich Krankmeldungen. Die Motivation sinkt. Fehler passieren.</p>
+                                <p>Du selbst bist ausgebrannt.</p>
+                            `,
+                            impact: {
+                                stress: 45,
+                                teamMorale: -25,
+                                efficiency: -30
+                            }
+                        }
+                    },
+                    {
+                        text: '"Du hast recht. Lass uns das systematisch angehen – mit Prioritäten und Struktur."',
+                        feedback: {
+                            icon: '🛠️',
+                            title: 'Der Wille zur Veränderung',
+                            body: `
+                                <p>Du nimmst dir vor, es zu ändern. Ihr blockt Zeit für strategische Arbeit, definiert Prioritäten.</p>
+                                <p>Aber: Am Montag kommen schon wieder neue Dringlichkeiten. Die guten Vorsätze verfallen.</p>
+                                <p>Warum? Weil ihr kein System habt, das euch dabei hilft, strukturiert zu bleiben.</p>
+                            `,
+                            impact: {
+                                stress: 40,
+                                teamMorale: -10,
+                                efficiency: -15
+                            }
+                        }
+                    },
+                    {
+                        text: '"Wir brauchen eine grundsätzlich andere Arbeitsweise. Ein Betriebssystem."',
+                        feedback: {
+                            icon: '💭',
+                            title: 'Die Erkenntnis',
+                            body: `
+                                <p>Deine Kollegin: "Wie meinst du das?"</p>
+                                <p>Du: "Wir brauchen Struktur, Entscheidungslogik, Priorisierung. Nicht mehr Tools – sondern ein System, das uns hilft, zu steuern statt zu reagieren."</p>
+                                <p>Sie: "Gibt es so etwas?"</p>
+                                <p>Du: "Lass es uns herausfinden."</p>
+                            `,
+                            impact: {
+                                stress: 35,
+                                teamMorale: 5,
+                                efficiency: -10
+                            }
+                        }
+                    }
+                ]
+            }
+        ];
+
+        // Start Game
+        function startGame() {
+            document.getElementById('introScreen').classList.add('hidden');
+            document.getElementById('gameScreen').classList.remove('hidden');
+            showScenario(0);
+        }
+
+        // Show Scenario
+        function showScenario(index) {
+            if (index >= scenarios.length) {
+                endGame();
+                return;
+            }
+
+            const scenario = scenarios[index];
+            gameState.currentScenario = index;
+
+            // Update header
+            document.getElementById('dayIndicator').textContent = scenario.day.toUpperCase();
+            updateStressMeter();
+
+            // Build scenario HTML
+            const content = document.getElementById('gameContent');
+            content.innerHTML = `
+                <div class="situation-card">
+                    <div class="situation-header">
+                        <div class="situation-icon">${scenario.icon}</div>
+                        <div class="situation-title">
+                            <h2>${scenario.title}</h2>
+                            <div class="situation-meta">
+                                Von: ${scenario.from}
+                                <span class="urgency-badge urgency-${scenario.urgency}">
+                                    ${scenario.urgency === 'high' ? 'Dringend' : 'Wichtig'}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="situation-body">${scenario.body}</div>
+                    <div class="situation-question">${scenario.question}</div>
+                </div>
+                <div class="choices">
+                    ${scenario.choices.map((choice, i) => `
+                        <div class="choice" onclick="makeChoice(${index}, ${i})">
+                            <div class="choice-letter">${String.fromCharCode(65 + i)}</div>
+                            <div class="choice-text">${choice.text}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Make Choice
+        function makeChoice(scenarioIndex, choiceIndex) {
+            const scenario = scenarios[scenarioIndex];
+            const choice = scenario.choices[choiceIndex];
+
+            // Record decision
+            gameState.decisions.push({
+                scenario: scenario.title,
+                choice: choice.text
+            });
+
+            // Show feedback
+            showFeedback(choice.feedback);
+        }
+
+        // Show Feedback
+        function showFeedback(feedback) {
+            const modal = document.getElementById('feedbackModal');
+            const content = document.getElementById('feedbackContent');
+
+            let impactHTML = '';
+            if (feedback.impact) {
+                impactHTML = '<div class="feedback-impact"><strong>Auswirkungen:</strong>';
+                Object.entries(feedback.impact).forEach(([key, value]) => {
+                    const labels = {
+                        stress: 'Stress',
+                        efficiency: 'Effizienz',
+                        teamMorale: 'Team-Moral',
+                        bossHappiness: 'Chef-Zufriedenheit'
+                    };
+                    const sign = value > 0 ? '+' : '';
+                    const className = value < 0 ? 'impact-negative' : 'impact-positive';
+                    impactHTML += `
+                        <div class="impact-item">
+                            <span>${labels[key]}:</span>
+                            <span class="${className}">${sign}${value}${key === 'stress' ? '' : '%'}</span>
+                        </div>
+                    `;
+                });
+                impactHTML += '</div>';
+            }
+
+            content.innerHTML = `
+                <div class="feedback-icon">${feedback.icon}</div>
+                <h3 class="feedback-title">${feedback.title}</h3>
+                <div class="feedback-body">${feedback.body}</div>
+                ${impactHTML}
+                <button class="btn" onclick="closeFeedback()">Weiter</button>
+            `;
+
+            modal.classList.add('active');
+
+            // Apply impact
+            if (feedback.impact) {
+                Object.entries(feedback.impact).forEach(([key, value]) => {
+                    if (gameState[key] !== undefined) {
+                        gameState[key] += value;
+                        gameState[key] = Math.max(0, Math.min(100, gameState[key]));
+                    }
+                });
+            }
+        }
+
+        // Close Feedback
+        function closeFeedback() {
+            document.getElementById('feedbackModal').classList.remove('active');
+            gameState.currentScenario++;
+            showScenario(gameState.currentScenario);
+        }
+
+        // Update Stress Meter
+        function updateStressMeter() {
+            const stress = gameState.stress;
+            document.getElementById('stressValue').textContent = Math.round(stress) + '%';
+            document.getElementById('stressBar').style.width = stress + '%';
+
+            if (stress < 40) {
+                document.getElementById('stressBar').style.background = 'var(--color-success)';
+            } else if (stress < 70) {
+                document.getElementById('stressBar').style.background = 'var(--color-warning)';
+            } else {
+                document.getElementById('stressBar').style.background = 'var(--color-danger)';
+            }
+        }
+
+        // End Game
+        function endGame() {
+            document.getElementById('gameScreen').classList.add('hidden');
+            const endScreen = document.getElementById('endingScreen');
+            endScreen.classList.remove('hidden');
+
+            const avgEfficiency = gameState.efficiency;
+            const avgMorale = gameState.teamMorale;
+            const finalStress = gameState.stress;
+
+            endScreen.innerHTML = `
+                <div class="ending-icon">😮‍💨</div>
+                <h1>Wochenende. Endlich.</h1>
+                <p class="subtitle">Eine normale Woche im Employer Branding</p>
+
+                <div class="ending-stats">
+                    <div class="stat-row">
+                        <span class="stat-label">Stress-Level</span>
+                        <span class="stat-value" style="color: var(--color-danger);">${Math.round(finalStress)}%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Effizienz</span>
+                        <span class="stat-value">${Math.round(avgEfficiency)}%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Team-Moral</span>
+                        <span class="stat-value">${Math.round(avgMorale)}%</span>
+                    </div>
+                    <div class="stat-row">
+                        <span class="stat-label">Chef-Zufriedenheit</span>
+                        <span class="stat-value">${Math.round(gameState.bossHappiness)}%</span>
+                    </div>
+                </div>
+
+                <div class="reflection-box">
+                    <h3>Was ist passiert?</h3>
+                    <p>Du hast Entscheidungen getroffen, Probleme gelöst, auf Anfragen reagiert.</p>
+                    <p>Aber: <strong>Du hast nicht gesteuert. Du hast reagiert.</strong></p>
+                    <p>Das Problem ist nicht deine Kompetenz. Das Problem ist das fehlende System.</p>
+                    <ul>
+                        <li>Keine klaren Entscheidungsgrundlagen</li>
+                        <li>Keine durchgängige Logik</li>
+                        <li>Keine strukturierte Arbeitsweise</li>
+                        <li>Keine Priorisierung nach Wirkung</li>
+                        <li>Viel Aufwand – wenig nachvollziehbare Wirkung</li>
+                    </ul>
+                </div>
+
+                <div class="solution-box">
+                    <h3>Mit ASANTIAL wäre diese Woche anders verlaufen</h3>
+                    <p><strong>Statt reaktivem Aktionismus: Strukturierte Steuerung.</strong></p>
+
+                    <p style="margin-top: 20px;"><strong>Situation 1 – Zahlen für Geschäftsführung:</strong><br>
+                    Der <strong>Kennzahlenkompass</strong> hätte dir eine durchgängige Tracking-Struktur gegeben. Die Zahlen wären abrufbar gewesen – jederzeit.</p>
+
+                    <p><strong>Situation 2 – Kampagnen-Briefing:</strong><br>
+                    Das <strong>Kampagnenbriefing-Tool</strong> hätte eine klare, strukturierte Arbeitsgrundlage für die Agentur geschaffen. Keine Missverständnisse, keine nachträglichen Diskussionen.</p>
+
+                    <p><strong>Situation 3 – Recruiting-Druck:</strong><br>
+                    Die <strong>Stellenanzeigen-App</strong> und die <strong>Zielgruppeninsides</strong> hätten dir geholfen, präzise, wirksame Anzeigen zu erstellen – statt generischer Textbausteine.</p>
+
+                    <p><strong>Situation 4 – Kununu-Krise:</strong><br>
+                    Das Tool <strong>Kununuantworten</strong> hätte dir klare, rechtssichere, professionelle Antworten vorgeschlagen – keine Improvisation.</p>
+
+                    <p><strong>Situation 5 – Reporting:</strong><br>
+                    Die <strong>Roadmap</strong> und der <strong>Projektmanager</strong> hätten dir eine klare Argumentationslinie gegeben: Was wurde gemacht, warum, mit welcher Logik?</p>
+
+                    <p><strong>Situation 6 – Team-Erschöpfung:</strong><br>
+                    Mit einem <strong>Betriebssystem für Employer Branding</strong> hättet ihr strukturiert gearbeitet – statt getrieben zu werden.</p>
+
+                    <div class="app-list">
+                        <div class="app-item">📊 Kennzahlenkompass</div>
+                        <div class="app-item">📋 Kampagnenbriefing</div>
+                        <div class="app-item">📝 Stellenanzeigen</div>
+                        <div class="app-item">⭐ Kununuantworten</div>
+                        <div class="app-item">🗺️ Roadmap</div>
+                        <div class="app-item">🎯 Projektmanager</div>
+                        <div class="app-item">🔍 Arbeitsmarktanalyse</div>
+                        <div class="app-item">🎯 Zielgruppeninsides</div>
+                        <div class="app-item">💼 Businessargumente</div>
+                        <div class="app-item">📈 Wettbewerbsanalyse</div>
+                    </div>
+
+                    <p style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(13, 110, 253, 0.2);">
+                        <strong>ASANTIAL ist kein Tool. Es ist ein Betriebssystem.</strong><br>
+                        Es ersetzt den reaktiven Modus durch strukturierte Steuerung.<br>
+                        Statt Aktionismus: Klarheit. Statt Rechtfertigung: Argumentationssicherheit.
+                    </p>
+                </div>
+
+                <button class="btn" onclick="window.location.href='index.html'">Mehr über ASANTIAL erfahren</button>
+                <button class="btn btn-secondary" style="margin-top: 12px;" onclick="location.reload()">Nochmal spielen</button>
+            `;
+        }
+    </script>
+</body>
+</html>

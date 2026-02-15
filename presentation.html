@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASANTIAL – Das Betriebssystem für Employer Branding</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .slide-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 40px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .slide-content {
+            max-width: 900px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            color: #1a1a1a;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 2rem;
+            color: #1a1a1a;
+        }
+
+        .subline {
+            font-size: 1.5rem;
+            font-weight: 400;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #4a4a4a;
+        }
+
+        .body-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #2a2a2a;
+        }
+
+        .list {
+            text-align: left;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .list-item {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .list-item:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #1a1a1a;
+        }
+
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .column ul {
+            list-style: none;
+        }
+
+        .column li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 0.75rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .column li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 1rem 2.5rem;
+            font-size: 1.25rem;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 2rem;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #333333;
+        }
+
+        .microcopy {
+            font-size: 0.95rem;
+            color: #666;
+            margin-top: 1rem;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nav-hint {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: #1a1a1a;
+            transition: width 0.5s ease;
+        }
+
+        .three-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .step {
+            padding: 2rem;
+            background: #f8f8f8;
+            border-radius: 8px;
+        }
+
+        .step-number {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #4a4a4a;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .app-category h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .app-item {
+            margin-bottom: 1rem;
+        }
+
+        .app-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .app-description {
+            font-size: 0.95rem;
+            color: #4a4a4a;
+            line-height: 1.5;
+        }
+
+        .premium-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .premium-item {
+            padding: 1.5rem;
+            background: #f8f8f8;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .premium-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .premium-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #4a4a4a;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.75rem; }
+            .subline { font-size: 1.1rem; }
+            .body-text { font-size: 1rem; }
+            .two-columns,
+            .three-steps,
+            .apps-grid,
+            .premium-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <div class="slide-container">
+        <!-- Slide 1: Hero -->
+        <div class="slide active" data-slide="1">
+            <div class="slide-content">
+                <h1>Das Betriebssystem für<br>Employer Branding.</h1>
+                <p class="subline">Für HR-Verantwortliche im Mittelstand, die ihre Arbeitgebermarke sicher, erklärbar und wirksam steuern.</p>
+                <p class="body-text">Employer Branding ermöglicht HR, Wirkung zu entfalten.<br>Nach innen. Nach außen.<br><br>Voraussetzung dafür ist ein planvolles, zielgerichtetes Vorgehen. Und Steuerung.</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: Wirkung braucht Steuerbarkeit -->
+        <div class="slide" data-slide="2">
+            <div class="slide-content">
+                <h2>Nur wer steuert, erzielt Wirkung.</h2>
+                <p class="body-text">Employer Branding entfaltet Wirkung dann, wenn HR nicht nur reagiert, sondern steuert.<br>Nicht alles gleichzeitig. Nicht auf Zuruf. Sondern in einer Reihenfolge, die Sinn macht. Und zur Organisation passt.</p>
+                <div class="list">
+                    <div class="list-item">Klarheit darüber, wo Sie stehen</div>
+                    <div class="list-item">Klarheit darüber, welcher Schritt wann sinnvoll ist</div>
+                    <div class="list-item">Klarheit darüber, was bewusst noch nicht dran ist</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Arbeiten entlang von Entscheidungen -->
+        <div class="slide" data-slide="3">
+            <div class="slide-content">
+                <h2>Arbeiten entlang von Entscheidungen –<br>nicht entlang von Maßnahmen.</h2>
+                <div class="three-steps">
+                    <div class="step">
+                        <div class="step-number">1.</div>
+                        <div class="step-title">Einordnen</div>
+                        <div class="step-description">Wo stehen wir?</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2.</div>
+                        <div class="step-title">Entscheiden</div>
+                        <div class="step-description">Welcher Schritt ist jetzt sinnvoll und nötig?</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3.</div>
+                        <div class="step-title">Weiterarbeiten</div>
+                        <div class="step-description">Ergebnisse anschließen statt neu starten.</div>
+                    </div>
+                </div>
+                <p class="body-text" style="margin-top: 3rem;">Entscheidungen werden nachvollziehbar. Arbeit wird produktiv, durchgängig. Wirkung wird erklärbar.</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Vorher / Nachher -->
+        <div class="slide" data-slide="4">
+            <div class="slide-content">
+                <h2>Von viel Aufwand zu klarer Wirkung.</h2>
+                <p class="subline">Employer Branding im Projektmodus fühlt sich beschäftigt an. Als System wird es wirksam.</p>
+                <div class="two-columns">
+                    <div class="column">
+                        <h3>Vorher: Projektlogik. Aktionismus. Rechtfertigung.</h3>
+                        <ul>
+                            <li>Viele Einzelmaßnahmen</li>
+                            <li>Ständige Abstimmungen</li>
+                            <li>Impulse von außen bestimmen die Agenda</li>
+                            <li>Viel Arbeit – wenig Abschlussgefühl</li>
+                            <li>Ergebnisse schwer erklärbar</li>
+                            <li>Verantwortung ohne echte Kontrolle</li>
+                        </ul>
+                    </div>
+                    <div class="column">
+                        <h3>Nachher: Systemlogik. Klarheit. Wirkung.</h3>
+                        <ul>
+                            <li>Klare Linie statt Einzelaktionen</li>
+                            <li>Strukturierte Entscheidungen</li>
+                            <li>Eigene Prioritäten statt Fremdsteuerung</li>
+                            <li>Arbeit mit sichtbarem Fortschritt</li>
+                            <li>Nachvollziehbare Wirkungslogik</li>
+                            <li>Verantwortung mit Rückhalt</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: ASANTIAL Professional -->
+        <div class="slide" data-slide="5">
+            <div class="slide-content">
+                <h2>ASANTIAL Professional</h2>
+                <p class="body-text">ASANTIAL Professional bildet die dauerhafte Arbeitsgrundlage. Alle Standard-Apps greifen ineinander und folgen einer klaren Entscheidungs- und Wirkungslogik.</p>
+                <p class="body-text">Statt Einzelprojekten entsteht kontinuierliche Arbeit.<br>Statt Aktionismus entsteht Struktur.<br>Statt Rechtfertigungsdruck entsteht Argumentationssicherheit.</p>
+                <div class="list">
+                    <div class="list-item">Zugriff auf alle Standard-Apps</div>
+                    <div class="list-item">Durchgängige Systemlogik</div>
+                    <div class="list-item">Kontinuierliche Weiterentwicklung statt Kampagnen-Denken</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Standard-Apps (Teil 1) -->
+        <div class="slide" data-slide="6">
+            <div class="slide-content">
+                <h2>Die Standard-Apps</h2>
+                <p class="subline">Alle Apps in ASANTIAL Professional enthalten</p>
+                <div class="apps-grid">
+                    <div class="app-category">
+                        <h3>🔍 Analyse & Orientierung</h3>
+                        <div class="app-item">
+                            <div class="app-name">Arbeitsmarktanalyse</div>
+                            <div class="app-description">Sachliche Einordnung ohne operative Schnellschüsse</div>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-name">Wettbewerbsanalyse</div>
+                            <div class="app-description">Vergleichbarkeit der Arbeitgeberkommunikation</div>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-name">Karriereseitenanalyse</div>
+                            <div class="app-description">Bewertung von Klarheit und Wirkung</div>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-name">Trendradar</div>
+                            <div class="app-description">Unterscheidung von Relevanz und Hype</div>
+                        </div>
+                    </div>
+                    <div class="app-category">
+                        <h3>🎯 Strategie & Substanz</h3>
+                        <div class="app-item">
+                            <div class="app-name">Businessargumente</div>
+                            <div class="app-description">Wirtschaftliche Erklärbarkeit schaffen</div>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-name">Kennzahlenkompass</div>
+                            <div class="app-description">Relevante Kennzahlen priorisieren</div>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-name">Zielgruppeninsides</div>
+                            <div class="app-description">Entscheidungslogiken greifbar machen</div>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-name">Interne Kommunikation</div>
+                            <div class="app-description">Wann Kommunikation sinnvoll ist</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Standard-Apps (Teil 2) -->
+        <div class="slide" data-slide="7">
+            <div class="slide-content">
+                <h2>Umsetzung & Struktur</h2>
+                <div class="apps-grid">
+                    <div class="app-category">
+                        <h3>⚙️ Operative Apps</h3>
+                        <div class="app-item">
+                            <div class="app-name">Projektmanager</div>
+                            <div class="app-description">Strukturierte Begleitung durch alle Phasen</div>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-name">Roadmap</div>
+                            <div class="app-description">Jahresplanung mit Abhängigkeiten</div>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-name">Kick-Off-Workshop</div>
+                            <div class="app-description">Strategischer Prozessstart</div>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-name">Kampagnenbriefing</div>
+                            <div class="app-description">Klare Arbeitsgrundlagen</div>
+                        </div>
+                    </div>
+                    <div class="app-category">
+                        <h3>✍️ Content & Reaktion</h3>
+                        <div class="app-item">
+                            <div class="app-name">Stellenanzeigen</div>
+                            <div class="app-description">Klar, strukturiert, auffindbar</div>
+                        </div>
+                        <div class="app-item">
+                            <div class="app-name">Kununuantworten</div>
+                            <div class="app-description">Sachlich und rechtlich sauber</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Premium-Angebote -->
+        <div class="slide" data-slide="8">
+            <div class="slide-content">
+                <h2>Premium-Angebote</h2>
+                <p class="subline">Strategische Deep Dives für zentrale Fragestellungen</p>
+                <div class="premium-grid">
+                    <div class="premium-item">
+                        <div class="premium-name">EVP Paket</div>
+                        <div class="premium-description">Ein belastbares Arbeitgeberversprechen mit Substanz und Anschlussfähigkeit.</div>
+                    </div>
+                    <div class="premium-item">
+                        <div class="premium-name">Arbeitgeberclaim PREMIUM</div>
+                        <div class="premium-description">Tragfähiger Claim mit langfristiger Orientierungsfunktion.</div>
+                    </div>
+                    <div class="premium-item">
+                        <div class="premium-name">Führungsabgleich PREMIUM</div>
+                        <div class="premium-description">Abgleich zwischen Versprechen und Führungsrealität.</div>
+                    </div>
+                    <div class="premium-item">
+                        <div class="premium-name">Kampagnenpaket</div>
+                        <div class="premium-description">Von Briefing bis visualisierte Richtung – eine begründete Plattformidee.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Drei Einsatzweisen -->
+        <div class="slide" data-slide="9">
+            <div class="slide-content">
+                <h2>Drei Wege, Verantwortung tragfähig zu machen.</h2>
+                <div class="three-steps">
+                    <div class="step">
+                        <div class="step-title">Selektive Unterstützung</div>
+                        <div class="step-description">Klares Handeln im entscheidenden Moment.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-title">Kontinuierliche Arbeitsgrundlage</div>
+                        <div class="step-description">Entlastung im HR-Alltag.</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-title">Strategische Verankerung</div>
+                        <div class="step-description">Souveräne Integration richtungsweisender Fragen.</div>
+                    </div>
+                </div>
+                <p class="body-text" style="margin-top: 3rem;">Modular einsteigen. Systemisch wirken.<br>Keine Rabattschlachten. Keine Tool-Flut.<br>Sondern klare Entscheidungen in einer klaren Struktur.</p>
+            </div>
+        </div>
+
+        <!-- Slide 10: Abschluss / CTA -->
+        <div class="slide" data-slide="10">
+            <div class="slide-content">
+                <h2>Eine Entscheidung muss sich tragen.</h2>
+                <p class="body-text">Es geht um eine Arbeitsgrundlage,<br>die Verantwortung stabiler macht.</p>
+                <p class="body-text">Im Einstiegsgespräch klären wir gemeinsam,<br>wie das zu Ihrer Realität passt.</p>
+                <a href="#" class="cta-button">Einstiegsgespräch vereinbaren</a>
+                <p class="microcopy">ca. 30 Minuten · unverbindlich · keine klassische Produktdemo</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-hint">← → Pfeiltasten zum Navigieren</div>
+    <div class="navigation">
+        <span id="slideCounter">1 / 10</span>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 10;
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progressBar');
+        const slideCounter = document.getElementById('slideCounter');
+
+        function updateSlide() {
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+
+            const activeSlide = document.querySelector(`[data-slide="${currentSlide}"]`);
+            if (activeSlide) {
+                activeSlide.classList.add('active');
+            }
+
+            // Update progress bar
+            const progress = (currentSlide / totalSlides) * 100;
+            progressBar.style.width = progress + '%';
+
+            // Update counter
+            slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide();
+            }
+        }
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>
